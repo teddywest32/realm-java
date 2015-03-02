@@ -16,8 +16,13 @@
 
 package io.realm.internal;
 
+import java.lang.ref.Reference;
+import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class Context {
 
@@ -27,10 +32,16 @@ class Context {
     // whose disposal need to be handed over from the garbage 
     // collection thread to the users thread.
 
+    // Store the row references. Without this objects would be garbage collected immediately so don't remove this! ;)
+    final Set<Reference<?>> rowReferences = Collections.synchronizedSet(new HashSet<Reference<?>>());
+
+    // This is the actual reference queue in which the garbage collector will insert the row instances ready to be
+    // cleaned up
+    final ReferenceQueue<NativeObject> rowReferenceQueue = new ReferenceQueue<NativeObject>();
+
     private List<Long> abandonedTables = new ArrayList<Long>();
     private List<Long> abandonedTableViews = new ArrayList<Long>();
     private List<Long> abandonedQueries = new ArrayList<Long>();
-    private List<Long> abandonedRows = new ArrayList<Long>();
 
     private boolean isFinalized = false;
 
@@ -41,11 +52,6 @@ class Context {
             }
             abandonedTables.clear();
 
-            for (long nativePointer: abandonedRows) {
-                Row.nativeClose(nativePointer);
-            }
-            abandonedRows.clear();
-
             for (long nativePointer: abandonedTableViews) {
                 TableView.nativeClose(nativePointer);
             }
@@ -55,6 +61,12 @@ class Context {
                 TableQuery.nativeClose(nativePointer);
             }
             abandonedQueries.clear();
+
+            NativeObjectReference reference;
+            while ((reference = (NativeObjectReference) rowReferenceQueue.poll()) != null) {
+                Row.nativeClose(reference.nativePointer);
+                rowReferences.remove(reference);
+            }
         }
     }
 
@@ -64,15 +76,6 @@ class Context {
         }
         else {
             abandonedTables.add(nativePointer);
-        }
-    }
-
-    public void asyncDisposeRow(long nativePointer) {
-        if (isFinalized) {
-            Row.nativeClose(nativePointer);
-        }
-        else {
-            abandonedRows.add(nativePointer);
         }
     }
 
