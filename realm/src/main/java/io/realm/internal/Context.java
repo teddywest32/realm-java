@@ -19,7 +19,6 @@ package io.realm.internal;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +32,7 @@ class Context {
     // collection thread to the users thread.
 
     // Store the row references. Without this objects would be garbage collected immediately so don't remove this! ;)
-    final Set<Reference<?>> rowReferences = Collections.synchronizedSet(new HashSet<Reference<?>>());
+    final Set<Reference<?>> rowReferences = new HashSet<Reference<?>>();
 
     // This is the actual reference queue in which the garbage collector will insert the row instances ready to be
     // cleaned up
