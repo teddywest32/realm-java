@@ -18,8 +18,13 @@ package io.realm.internal;
 import java.lang.ref.PhantomReference;
 import java.lang.ref.ReferenceQueue;
 
+/**
+ * This phantom reference extension is specialized in holding the pointer to the native objects that needs to be
+ * handled.s
+ */
 public class NativeObjectReference extends PhantomReference<NativeObject> {
 
+    // The pointer to the native object to be handled
     final long nativePointer;
 
     public NativeObjectReference(NativeObject referent, ReferenceQueue<? super NativeObject> referenceQueue) {
