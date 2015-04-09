@@ -20,6 +20,7 @@ project(':threadExample').projectDir = new File('examples/threadExample')
 project(':jsonExample').projectDir = new File('examples/jsonExample')
 
 // Experimental projects
-include ':pathExperiment'
+include ':pathExperiment', ':cookieManager'
 
 project(':pathExperiment').projectDir = new File('experimental/pathExperiment')
+project(':cookieManager').projectDir = new File('experimental/cookieManager')

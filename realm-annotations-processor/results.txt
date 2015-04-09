@@ -1,0 +1,2354 @@
+Starting Build
+Settings evaluated using empty settings script.
+Projects loaded. Root project using build file '/Users/cm/Realm/realm-java/realm-annotations-processor/build.gradle'.
+Included projects: [root project 'realm-annotations-processor']
+Evaluating root project 'realm-annotations-processor' using build file '/Users/cm/Realm/realm-java/realm-annotations-processor/build.gradle'.
+All projects evaluated.
+Selected primary task 'clean' from project :
+Selected primary task 'test' from project :
+Tasks to be executed: [task ':clean', task ':compileAnnotations', task ':generateVersionClass', task ':compileJava', task ':processResources', task ':classes', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test']
+:clean (Thread[main,5,main]) started.
+:clean
+Executing task ':clean' (up-to-date check took 0.001 secs) due to:
+  Task has not declared any outputs.
+:clean (Thread[main,5,main]) completed. Took 0.028 secs.
+:compileAnnotations (Thread[main,5,main]) started.
+:compileAnnotations
+Executing task ':compileAnnotations' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+Evaluating root project 'realm-annotations' using build file '/Users/cm/Realm/realm-java/realm-annotations/build.gradle'.
+Selected primary task 'assemble' from project :
+:compileJava (Thread[main,5,main]) started.
+:realm-annotations:compileJava
+Skipping task ':compileJava' as it is up-to-date (took 0.032 secs).
+:realm-annotations:compileJava UP-TO-DATE
+:compileJava (Thread[main,5,main]) completed. Took 0.039 secs.
+:processResources (Thread[main,5,main]) started.
+:realm-annotations:processResources
+Skipping task ':processResources' as it has no source files.
+:realm-annotations:processResources UP-TO-DATE
+:processResources (Thread[main,5,main]) completed. Took 0.001 secs.
+:classes (Thread[main,5,main]) started.
+:realm-annotations:classes
+Skipping task ':classes' as it has no actions.
+:realm-annotations:classes UP-TO-DATE
+:classes (Thread[main,5,main]) completed. Took 0.001 secs.
+:jar (Thread[main,5,main]) started.
+:realm-annotations:jar
+Skipping task ':jar' as it is up-to-date (took 0.013 secs).
+:realm-annotations:jar UP-TO-DATE
+:jar (Thread[main,5,main]) completed. Took 0.016 secs.
+:assemble (Thread[main,5,main]) started.
+:realm-annotations:assemble
+Skipping task ':assemble' as it has no actions.
+:realm-annotations:assemble UP-TO-DATE
+:assemble (Thread[main,5,main]) completed. Took 0.001 secs.
+Stopped 0 compiler daemon(s).
+:compileAnnotations (Thread[main,5,main]) completed. Took 0.195 secs.
+:generateVersionClass (Thread[main,5,main]) started.
+:generateVersionClass
+Executing task ':generateVersionClass' (up-to-date check took 0.004 secs) due to:
+  Task.upToDateWhen is false.
+:generateVersionClass (Thread[main,5,main]) completed. Took 0.04 secs.
+:compileJava (Thread[main,5,main]) started.
+:compileJava
+Executing task ':compileJava' (up-to-date check took 0.007 secs) due to:
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/dependency-cache has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/classes/main has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/classes/main/io/realm/processor/RealmVersionChecker.class has been removed.
+All input files are considered out-of-date for incremental task ':compileJava'.
+Compiling with JDK Java compiler API.
+:compileJava (Thread[main,5,main]) completed. Took 0.721 secs.
+:processResources (Thread[main,5,main]) started.
+:processResources
+Executing task ':processResources' (up-to-date check took 0.003 secs) due to:
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/main has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/main/META-INF/services/javax.annotation.processing.Processor has been removed.
+:processResources (Thread[main,5,main]) completed. Took 0.01 secs.
+:classes (Thread[main,5,main]) started.
+:classes
+Skipping task ':classes' as it has no actions.
+:classes (Thread[main,5,main]) completed. Took 0.001 secs.
+:compileTestJava (Thread[main,5,main]) started.
+:compileTestJava
+Executing task ':compileTestJava' (up-to-date check took 0.043 secs) due to:
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/classes/test has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/dependency-cache has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/classes/test/io/realm/processor/RealmProcessorTest.class has been removed.
+All input files are considered out-of-date for incremental task ':compileTestJava'.
+Compiling with JDK Java compiler API.
+:compileTestJava (Thread[main,5,main]) completed. Took 0.15 secs.
+:processTestResources (Thread[main,5,main]) started.
+:processTestResources
+Executing task ':processTestResources' (up-to-date check took 0.004 secs) due to:
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test/some/test/Empty.java has been removed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test/some/test/FieldNames.java has been removed.
+:processTestResources (Thread[main,5,main]) completed. Took 0.022 secs.
+:testClasses (Thread[main,5,main]) started.
+:testClasses
+Skipping task ':testClasses' as it has no actions.
+:testClasses (Thread[main,5,main]) completed. Took 0.0 secs.
+:test (Thread[main,5,main]) started.
+:test
+Executing task ':test' (up-to-date check took 0.024 secs) due to:
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/test-results has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/test-results/binary/test has changed.
+  Output file /Users/cm/Realm/realm-java/realm-annotations-processor/build/reports/tests has changed.
+Starting process 'Gradle Test Executor 1'. Working directory: /Users/cm/Realm/realm-java/realm-annotations-processor Command: /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/bin/java -Djava.security.manager=jarjar.org.gradle.process.internal.child.BootstrapSecurityManager -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant -ea -cp /Users/cm/.gradle/caches/2.2.1/workerMain/gradle-worker.jar jarjar.org.gradle.process.internal.launcher.GradleWorkerMain 'Gradle Test Executor 1'
+Successfully started process 'Gradle Test Executor 1'
+Gradle Test Executor 1 started executing tests.
+
+io.realm.processor.RealmProcessorTest > compareProcessedAllTypesFile FAILED
+    java.lang.AssertionError: 
+    Source declared the same top-level types of an expected source, but
+    didn't match exactly.
+
+    Expected file: </Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test/io/realm/AllTypesRealmProxy.java>
+    Actual file: </SOURCE_OUTPUT/io/realm/AllTypesRealmProxy.java>
+
+    Diffs:
+    ======
+
+    Found 1 unmatched nodes in the expected tree. 
+
+    > Extra node in expected tree.
+      Line 413 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->BLOCK(non-static)
+      Node contents: <{    return copy(realm, object, update, cache);
+    }>.
+  
+
+    Found 2 unmatched nodes in the actual tree. 
+
+    > Extra node in actual tree.
+      Line 402 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->BLOCK(non-static)->VARIABLE(pkColumnIndex)
+      Node contents: <long pkColumnIndex = table.getPrimaryKey()>.
+  
+
+    > Extra node in actual tree.
+      Line 414 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF
+      Node contents: <if (canUpdate) {    return update(realm, realmObject, object, cache);
+    } else {
+        return copy(realm, object, update, cache);
+    }>.
+  
+
+    Found 6 nodes that differed in expected and actual trees. 
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 395 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(realmObject)->VARIABLE(realmObject)
+      Actual node: Line 395 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->IF
+      Expected node kind to be <VARIABLE> but was <IF>.
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 396 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(canUpdate)
+      Actual node: Line 398 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(realmObject)
+      Expected variable name to be <canUpdate> but was <realmObject>.
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 396 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(canUpdate)->PRIMITIVE_TYPE(BOOLEAN)->PRIMITIVE_TYPE(BOOLEAN)
+      Actual node: Line 398 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(realmObject)->IDENTIFIER(AllTypes)->IDENTIFIER(AllTypes)
+      Expected node kind to be <PRIMITIVE_TYPE> but was <IDENTIFIER>.
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 396 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(canUpdate)->IDENTIFIER(update)->IDENTIFIER(update)
+      Actual node: Line 398 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(realmObject)->NULL_LITERAL(null)->NULL_LITERAL(null)
+      Expected node kind to be <IDENTIFIER> but was <NULL_LITERAL>.
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 397 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->IF
+      Actual node: Line 399 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->VARIABLE(canUpdate)->VARIABLE(canUpdate)
+      Expected node kind to be <IF> but was <VARIABLE>.
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 412 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->BLOCK(non-static)->RETURN->RETURN
+      Actual node: Line 401 COMPILATION_UNIT->CLASS(AllTypesRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->BLOCK(non-static)->VARIABLE(table)->VARIABLE(table)
+      Expected node kind to be <RETURN> but was <VARIABLE>.
+
+
+    Expected Source: 
+    ================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.AllTypes;
+
+    public class AllTypesRealmProxy extends AllTypes {
+
+        private static long INDEX_COLUMNSTRING;
+        private static long INDEX_COLUMNLONG;
+        private static long INDEX_COLUMNFLOAT;
+        private static long INDEX_COLUMNDOUBLE;
+        private static long INDEX_COLUMNBOOLEAN;
+        private static long INDEX_COLUMNDATE;
+        private static long INDEX_COLUMNBINARY;
+        private static long INDEX_COLUMNOBJECT;
+        private static long INDEX_COLUMNREALMLIST;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("columnString");
+            fieldNames.add("columnLong");
+            fieldNames.add("columnFloat");
+            fieldNames.add("columnDouble");
+            fieldNames.add("columnBoolean");
+            fieldNames.add("columnDate");
+            fieldNames.add("columnBinary");
+            fieldNames.add("columnObject");
+            fieldNames.add("columnRealmList");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public String getColumnString() {
+            realm.checkIfValid();
+            return (java.lang.String) row.getString(INDEX_COLUMNSTRING);
+        }
+
+        @Override
+        public void setColumnString(String value) {
+            realm.checkIfValid();
+            row.setString(INDEX_COLUMNSTRING, (String) value);
+        }
+
+        @Override
+        public long getColumnLong() {
+            realm.checkIfValid();
+            return (long) row.getLong(INDEX_COLUMNLONG);
+        }
+
+        @Override
+        public void setColumnLong(long value) {
+            realm.checkIfValid();
+            row.setLong(INDEX_COLUMNLONG, (long) value);
+        }
+
+        @Override
+        public float getColumnFloat() {
+            realm.checkIfValid();
+            return (float) row.getFloat(INDEX_COLUMNFLOAT);
+        }
+
+        @Override
+        public void setColumnFloat(float value) {
+            realm.checkIfValid();
+            row.setFloat(INDEX_COLUMNFLOAT, (float) value);
+        }
+
+        @Override
+        public double getColumnDouble() {
+            realm.checkIfValid();
+            return (double) row.getDouble(INDEX_COLUMNDOUBLE);
+        }
+
+        @Override
+        public void setColumnDouble(double value) {
+            realm.checkIfValid();
+            row.setDouble(INDEX_COLUMNDOUBLE, (double) value);
+        }
+
+        @Override
+        public boolean isColumnBoolean() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_COLUMNBOOLEAN);
+        }
+
+        @Override
+        public void setColumnBoolean(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_COLUMNBOOLEAN, (boolean) value);
+        }
+
+        @Override
+        public Date getColumnDate() {
+            realm.checkIfValid();
+            return (java.util.Date) row.getDate(INDEX_COLUMNDATE);
+        }
+
+        @Override
+        public void setColumnDate(Date value) {
+            realm.checkIfValid();
+            row.setDate(INDEX_COLUMNDATE, (Date) value);
+        }
+
+        @Override
+        public byte[] getColumnBinary() {
+            realm.checkIfValid();
+            return (byte[]) row.getBinaryByteArray(INDEX_COLUMNBINARY);
+        }
+
+        @Override
+        public void setColumnBinary(byte[] value) {
+            realm.checkIfValid();
+            row.setBinaryByteArray(INDEX_COLUMNBINARY, (byte[]) value);
+        }
+
+        @Override
+        public AllTypes getColumnObject() {
+            if (row.isNullLink(INDEX_COLUMNOBJECT)) {
+                return null;
+            }
+            return realm.get(some.test.AllTypes.class, row.getLink(INDEX_COLUMNOBJECT));
+        }
+
+        @Override
+        public void setColumnObject(AllTypes value) {
+            if (value == null) {
+                row.nullifyLink(INDEX_COLUMNOBJECT);
+                return;
+            }
+            row.setLink(INDEX_COLUMNOBJECT, value.row.getIndex());
+        }
+
+        @Override
+        public RealmList<AllTypes> getColumnRealmList() {
+            return new RealmList<AllTypes>(AllTypes.class, row.getLinkList(INDEX_COLUMNREALMLIST), realm);
+        }
+
+        @Override
+        public void setColumnRealmList(RealmList<AllTypes> value) {
+            LinkView links = row.getLinkList(INDEX_COLUMNREALMLIST);
+            if (value == null) {
+                return;
+            }
+            for (RealmObject linkedObject : (RealmList<? extends RealmObject>) value) {
+                links.add(linkedObject.row.getIndex());
+            }
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_AllTypes")) {
+                Table table = transaction.getTable("class_AllTypes");
+                table.addColumn(ColumnType.STRING, "columnString");
+                table.addColumn(ColumnType.INTEGER, "columnLong");
+                table.addColumn(ColumnType.FLOAT, "columnFloat");
+                table.addColumn(ColumnType.DOUBLE, "columnDouble");
+                table.addColumn(ColumnType.BOOLEAN, "columnBoolean");
+                table.addColumn(ColumnType.DATE, "columnDate");
+                table.addColumn(ColumnType.BINARY, "columnBinary");
+                if (!transaction.hasTable("class_AllTypes")) {
+                    AllTypesRealmProxy.initTable(transaction);
+                }
+                table.addColumnLink(ColumnType.LINK, "columnObject", transaction.getTable("class_AllTypes"));
+                if (!transaction.hasTable("class_AllTypes")) {
+                    AllTypesRealmProxy.initTable(transaction);
+                }
+                table.addColumnLink(ColumnType.LINK_LIST, "columnRealmList", transaction.getTable("class_AllTypes"));
+                table.setIndex(table.getColumnIndex("columnString"));
+                table.setPrimaryKey("columnString");
+                return table;
+            }
+            return transaction.getTable("class_AllTypes");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_AllTypes")) {
+                Table table = transaction.getTable("class_AllTypes");
+                if(table.getColumnCount() != 9) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 9; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("columnString")) {
+                    throw new IllegalStateException("Missing column 'columnString'");
+                }
+                if (columnTypes.get("columnString") != ColumnType.STRING) {
+                    throw new IllegalStateException("Invalid type 'String' for column 'columnString'");
+                }
+                if (!columnTypes.containsKey("columnLong")) {
+                    throw new IllegalStateException("Missing column 'columnLong'");
+                }
+                if (columnTypes.get("columnLong") != ColumnType.INTEGER) {
+                    throw new IllegalStateException("Invalid type 'long' for column 'columnLong'");
+                }
+                if (!columnTypes.containsKey("columnFloat")) {
+                    throw new IllegalStateException("Missing column 'columnFloat'");
+                }
+                if (columnTypes.get("columnFloat") != ColumnType.FLOAT) {
+                    throw new IllegalStateException("Invalid type 'float' for column 'columnFloat'");
+                }
+                if (!columnTypes.containsKey("columnDouble")) {
+                    throw new IllegalStateException("Missing column 'columnDouble'");
+                }
+                if (columnTypes.get("columnDouble") != ColumnType.DOUBLE) {
+                    throw new IllegalStateException("Invalid type 'double' for column 'columnDouble'");
+                }
+                if (!columnTypes.containsKey("columnBoolean")) {
+                    throw new IllegalStateException("Missing column 'columnBoolean'");
+                }
+                if (columnTypes.get("columnBoolean") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'columnBoolean'");
+                }
+                if (!columnTypes.containsKey("columnDate")) {
+                    throw new IllegalStateException("Missing column 'columnDate'");
+                }
+                if (columnTypes.get("columnDate") != ColumnType.DATE) {
+                    throw new IllegalStateException("Invalid type 'Date' for column 'columnDate'");
+                }
+                if (!columnTypes.containsKey("columnBinary")) {
+                    throw new IllegalStateException("Missing column 'columnBinary'");
+                }
+                if (columnTypes.get("columnBinary") != ColumnType.BINARY) {
+                    throw new IllegalStateException("Invalid type 'byte[]' for column 'columnBinary'");
+                }
+                if (!columnTypes.containsKey("columnObject")) {
+                    throw new IllegalStateException("Missing column 'columnObject'");
+                }
+                if (columnTypes.get("columnObject") != ColumnType.LINK) {
+                    throw new IllegalStateException("Invalid type 'AllTypes' for column 'columnObject'");
+                }
+                if (!transaction.hasTable("class_AllTypes")) {
+                    throw new IllegalStateException("Missing table 'class_AllTypes' for column 'columnObject'");
+                }
+                if(!columnTypes.containsKey("columnRealmList")) {
+                    throw new IllegalStateException("Missing column 'columnRealmList'");
+                }
+                if(columnTypes.get("columnRealmList") != ColumnType.LINK_LIST) {
+                    throw new IllegalStateException("Invalid type 'AllTypes' for column 'columnRealmList'");
+                }
+                if (!transaction.hasTable("class_AllTypes")) {
+                    throw new IllegalStateException("Missing table 'class_AllTypes' for column 'columnRealmList'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type AllTypes");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_COLUMNSTRING = table.getColumnIndex("columnString");
+                INDEX_COLUMNLONG = table.getColumnIndex("columnLong");
+                INDEX_COLUMNFLOAT = table.getColumnIndex("columnFloat");
+                INDEX_COLUMNDOUBLE = table.getColumnIndex("columnDouble");
+                INDEX_COLUMNBOOLEAN = table.getColumnIndex("columnBoolean");
+                INDEX_COLUMNDATE = table.getColumnIndex("columnDate");
+                INDEX_COLUMNBINARY = table.getColumnIndex("columnBinary");
+                INDEX_COLUMNOBJECT = table.getColumnIndex("columnObject");
+                INDEX_COLUMNREALMLIST = table.getColumnIndex("columnRealmList");
+            } else {
+                throw new RealmMigrationNeededException("The AllTypes class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(AllTypes obj, JSONObject json)
+                throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("columnString")) {
+                obj.setColumnString((String) json.getString("columnString"));
+            }
+            if (!json.isNull("columnLong")) {
+                obj.setColumnLong((long) json.getLong("columnLong"));
+            }
+            if (!json.isNull("columnFloat")) {
+                obj.setColumnFloat((float) json.getDouble("columnFloat"));
+            }
+            if (!json.isNull("columnDouble")) {
+                obj.setColumnDouble((double) json.getDouble("columnDouble"));
+            }
+            if (!json.isNull("columnBoolean")) {
+                obj.setColumnBoolean((boolean) json.getBoolean("columnBoolean"));
+            }
+            if (!json.isNull("columnDate")) {
+                Object timestamp = json.get("columnDate");
+                if (timestamp instanceof String) {
+                    obj.setColumnDate(JsonUtils.stringToDate((String) timestamp));
+                } else {
+                    obj.setColumnDate(new Date(json.getLong("columnDate")));
+                }
+            } else {
+                obj.setColumnDate(new Date(0));
+            }
+            obj.setColumnBinary(JsonUtils.stringToBytes(json.isNull("columnBinary") ? null : json.getString("columnBinary")));
+            if (!json.isNull("columnObject")) {
+                some.test.AllTypes columnObject = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                AllTypesRealmProxy.populateUsingJsonObject(columnObject, json.getJSONObject("columnObject"));
+                obj.setColumnObject(columnObject);
+            }
+            if (!json.isNull("columnRealmList")) {
+                if (standalone) {
+                    obj.setColumnRealmList(new RealmList<some.test.AllTypes>());
+                }
+                JSONArray array = json.getJSONArray("columnRealmList");
+                for (int i = 0; i < array.length(); i++) {
+                    some.test.AllTypes item = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                    AllTypesRealmProxy.populateUsingJsonObject(item, array.getJSONObject(i));
+                    obj.getColumnRealmList().add(item);
+                }
+            }
+        }
+
+        public static void populateUsingJsonStream(AllTypes obj, JsonReader reader)
+                throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("columnString") && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnString((String) reader.nextString());
+                } else if (name.equals("columnLong")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnLong((long) reader.nextLong());
+                } else if (name.equals("columnFloat")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnFloat((float) reader.nextDouble());
+                } else if (name.equals("columnDouble")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnDouble((double) reader.nextDouble());
+                } else if (name.equals("columnBoolean")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnBoolean((boolean) reader.nextBoolean());
+                } else if (name.equals("columnDate")  && reader.peek() != JsonToken.NULL) {
+                    if (reader.peek() == JsonToken.NUMBER) {
+                        long timestamp = reader.nextLong();
+                        if (timestamp > -1) {
+                            obj.setColumnDate(new Date(timestamp));
+                        }
+                    } else {
+                        obj.setColumnDate(JsonUtils.stringToDate(reader.nextString()));
+                    }
+                } else if (name.equals("columnBinary")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnBinary(JsonUtils.stringToBytes(reader.nextString()));
+                } else if (name.equals("columnObject")  && reader.peek() != JsonToken.NULL) {
+                    some.test.AllTypes columnObjectObj = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                    AllTypesRealmProxy.populateUsingJsonStream(columnObjectObj, reader);
+                    obj.setColumnObject(columnObjectObj);
+                } else if (name.equals("columnRealmList")  && reader.peek() != JsonToken.NULL) {
+                    reader.beginArray();
+                    if (standalone) {
+                        obj.setColumnRealmList(new RealmList<some.test.AllTypes>());
+                    }
+                    while (reader.hasNext()) {
+                        some.test.AllTypes item = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                        AllTypesRealmProxy.populateUsingJsonStream(item, reader);
+                        obj.getColumnRealmList().add(item);
+                    }
+                    reader.endArray();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static AllTypes copyOrUpdate(Realm realm, AllTypes object, boolean update, Map<RealmObject,RealmObject> cache) {
+            AllTypes realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(AllTypes.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                long rowIndex = table.findFirstString(pkColumnIndex, object.getColumnString());
+                if (rowIndex != TableOrView.NO_MATCH) {
+                    realmObject = new AllTypesRealmProxy();
+                    realmObject.realm = realm;
+                    realmObject.row = table.getRow(rowIndex);
+                    cache.put(object, realmObject);
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+
+        public static AllTypes copy(Realm realm, AllTypes newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            AllTypes realmObject = realm.createObject(AllTypes.class, newObject.getColumnString());
+            cache.put(newObject, realmObject);
+            realmObject.setColumnString(newObject.getColumnString() != null ? newObject.getColumnString() : "");
+            realmObject.setColumnLong(newObject.getColumnLong());
+            realmObject.setColumnFloat(newObject.getColumnFloat());
+            realmObject.setColumnDouble(newObject.getColumnDouble());
+            realmObject.setColumnBoolean(newObject.isColumnBoolean());
+            realmObject.setColumnDate(newObject.getColumnDate() != null ? newObject.getColumnDate() : new Date(0));
+            realmObject.setColumnBinary(newObject.getColumnBinary() != null ? newObject.getColumnBinary() : new byte[0]);
+
+            some.test.AllTypes columnObjectObj = newObject.getColumnObject();
+            if (columnObjectObj != null) {
+                some.test.AllTypes cachecolumnObject = (some.test.AllTypes) cache.get(columnObjectObj);
+                if (cachecolumnObject != null) {
+                    realmObject.setColumnObject(cachecolumnObject);
+                } else {
+                    realmObject.setColumnObject(AllTypesRealmProxy.copyOrUpdate(realm, columnObjectObj, update, cache));
+                }
+            }
+
+            RealmList<AllTypes> columnRealmListList = newObject.getColumnRealmList();
+            if (columnRealmListList != null) {
+                RealmList<AllTypes> columnRealmListRealmList = realmObject.getColumnRealmList();
+                for (int i = 0; i < columnRealmListList.size(); i++) {
+                    AllTypes columnRealmListItem = columnRealmListList.get(i);
+                    AllTypes cachecolumnRealmList = (AllTypes) cache.get(columnRealmListItem);
+                    if (cachecolumnRealmList != null) {
+                        columnRealmListRealmList.add(cachecolumnRealmList);
+                    } else {
+                        columnRealmListRealmList.add(AllTypesRealmProxy.copyOrUpdate(realm, columnRealmListList.get(i), update, cache));
+                    }
+                }
+            }
+
+            return realmObject;
+        }
+
+        static AllTypes update(Realm realm, AllTypes realmObject, AllTypes newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setColumnLong(newObject.getColumnLong());
+            realmObject.setColumnFloat(newObject.getColumnFloat());
+            realmObject.setColumnDouble(newObject.getColumnDouble());
+            realmObject.setColumnBoolean(newObject.isColumnBoolean());
+            realmObject.setColumnDate(newObject.getColumnDate() != null ? newObject.getColumnDate() : new Date(0));
+            realmObject.setColumnBinary(newObject.getColumnBinary() != null ? newObject.getColumnBinary() : new byte[0]);
+            AllTypes columnObjectObj = newObject.getColumnObject();
+            if (columnObjectObj != null) {
+                AllTypes cachecolumnObject = (AllTypes) cache.get(columnObjectObj);
+                if (cachecolumnObject != null) {
+                    realmObject.setColumnObject(cachecolumnObject);
+                } else {
+                    realmObject.setColumnObject(AllTypesRealmProxy.copyOrUpdate(realm, columnObjectObj, true, cache));
+                }
+            } else {
+                realmObject.setColumnObject(null);
+            }
+            RealmList<AllTypes> columnRealmListList = newObject.getColumnRealmList();
+            RealmList<AllTypes> columnRealmListRealmList = realmObject.getColumnRealmList();
+            columnRealmListRealmList.clear();
+            if (columnRealmListList != null) {
+                for (int i = 0; i < columnRealmListList.size(); i++) {
+                    AllTypes columnRealmListItem = columnRealmListList.get(i);
+                    AllTypes cachecolumnRealmList = (AllTypes) cache.get(columnRealmListItem);
+                    if (cachecolumnRealmList != null) {
+                        columnRealmListRealmList.add(cachecolumnRealmList);
+                    } else {
+                        columnRealmListRealmList.add(AllTypesRealmProxy.copyOrUpdate(realm, columnRealmListList.get(i), true, cache));
+                    }
+                }
+            }
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("AllTypes = [");
+            stringBuilder.append("{columnString:");
+            stringBuilder.append(getColumnString());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnLong:");
+            stringBuilder.append(getColumnLong());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnFloat:");
+            stringBuilder.append(getColumnFloat());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnDouble:");
+            stringBuilder.append(getColumnDouble());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnBoolean:");
+            stringBuilder.append(isColumnBoolean());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnDate:");
+            stringBuilder.append(getColumnDate());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnBinary:");
+            stringBuilder.append(getColumnBinary());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnObject:");
+            stringBuilder.append(getColumnObject() != null ? "AllTypes" : "null");
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnRealmList:");
+            stringBuilder.append("RealmList<AllTypes>[").append(getColumnRealmList().size()).append("]");
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            AllTypesRealmProxy aAllTypes = (AllTypesRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aAllTypes.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aAllTypes.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aAllTypes.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+
+    Actual Source:
+    =================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.AllTypes;
+
+    public class AllTypesRealmProxy extends AllTypes {
+
+        private static long INDEX_COLUMNSTRING;
+        private static long INDEX_COLUMNLONG;
+        private static long INDEX_COLUMNFLOAT;
+        private static long INDEX_COLUMNDOUBLE;
+        private static long INDEX_COLUMNBOOLEAN;
+        private static long INDEX_COLUMNDATE;
+        private static long INDEX_COLUMNBINARY;
+        private static long INDEX_COLUMNOBJECT;
+        private static long INDEX_COLUMNREALMLIST;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("columnString");
+            fieldNames.add("columnLong");
+            fieldNames.add("columnFloat");
+            fieldNames.add("columnDouble");
+            fieldNames.add("columnBoolean");
+            fieldNames.add("columnDate");
+            fieldNames.add("columnBinary");
+            fieldNames.add("columnObject");
+            fieldNames.add("columnRealmList");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public String getColumnString() {
+            realm.checkIfValid();
+            return (java.lang.String) row.getString(INDEX_COLUMNSTRING);
+        }
+
+        @Override
+        public void setColumnString(String value) {
+            realm.checkIfValid();
+            row.setString(INDEX_COLUMNSTRING, (String) value);
+        }
+
+        @Override
+        public long getColumnLong() {
+            realm.checkIfValid();
+            return (long) row.getLong(INDEX_COLUMNLONG);
+        }
+
+        @Override
+        public void setColumnLong(long value) {
+            realm.checkIfValid();
+            row.setLong(INDEX_COLUMNLONG, (long) value);
+        }
+
+        @Override
+        public float getColumnFloat() {
+            realm.checkIfValid();
+            return (float) row.getFloat(INDEX_COLUMNFLOAT);
+        }
+
+        @Override
+        public void setColumnFloat(float value) {
+            realm.checkIfValid();
+            row.setFloat(INDEX_COLUMNFLOAT, (float) value);
+        }
+
+        @Override
+        public double getColumnDouble() {
+            realm.checkIfValid();
+            return (double) row.getDouble(INDEX_COLUMNDOUBLE);
+        }
+
+        @Override
+        public void setColumnDouble(double value) {
+            realm.checkIfValid();
+            row.setDouble(INDEX_COLUMNDOUBLE, (double) value);
+        }
+
+        @Override
+        public boolean isColumnBoolean() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_COLUMNBOOLEAN);
+        }
+
+        @Override
+        public void setColumnBoolean(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_COLUMNBOOLEAN, (boolean) value);
+        }
+
+        @Override
+        public Date getColumnDate() {
+            realm.checkIfValid();
+            return (java.util.Date) row.getDate(INDEX_COLUMNDATE);
+        }
+
+        @Override
+        public void setColumnDate(Date value) {
+            realm.checkIfValid();
+            row.setDate(INDEX_COLUMNDATE, (Date) value);
+        }
+
+        @Override
+        public byte[] getColumnBinary() {
+            realm.checkIfValid();
+            return (byte[]) row.getBinaryByteArray(INDEX_COLUMNBINARY);
+        }
+
+        @Override
+        public void setColumnBinary(byte[] value) {
+            realm.checkIfValid();
+            row.setBinaryByteArray(INDEX_COLUMNBINARY, (byte[]) value);
+        }
+
+        @Override
+        public AllTypes getColumnObject() {
+            if (row.isNullLink(INDEX_COLUMNOBJECT)) {
+                return null;
+            }
+            return realm.get(some.test.AllTypes.class, row.getLink(INDEX_COLUMNOBJECT));
+        }
+
+        @Override
+        public void setColumnObject(AllTypes value) {
+            if (value == null) {
+                row.nullifyLink(INDEX_COLUMNOBJECT);
+                return;
+            }
+            row.setLink(INDEX_COLUMNOBJECT, value.row.getIndex());
+        }
+
+        @Override
+        public RealmList<AllTypes> getColumnRealmList() {
+            return new RealmList<AllTypes>(AllTypes.class, row.getLinkList(INDEX_COLUMNREALMLIST), realm);
+        }
+
+        @Override
+        public void setColumnRealmList(RealmList<AllTypes> value) {
+            LinkView links = row.getLinkList(INDEX_COLUMNREALMLIST);
+            if (value == null) {
+                return;
+            }
+            for (RealmObject linkedObject : (RealmList<? extends RealmObject>) value) {
+                links.add(linkedObject.row.getIndex());
+            }
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_AllTypes")) {
+                Table table = transaction.getTable("class_AllTypes");
+                table.addColumn(ColumnType.STRING, "columnString");
+                table.addColumn(ColumnType.INTEGER, "columnLong");
+                table.addColumn(ColumnType.FLOAT, "columnFloat");
+                table.addColumn(ColumnType.DOUBLE, "columnDouble");
+                table.addColumn(ColumnType.BOOLEAN, "columnBoolean");
+                table.addColumn(ColumnType.DATE, "columnDate");
+                table.addColumn(ColumnType.BINARY, "columnBinary");
+                if (!transaction.hasTable("class_AllTypes")) {
+                    AllTypesRealmProxy.initTable(transaction);
+                }
+                table.addColumnLink(ColumnType.LINK, "columnObject", transaction.getTable("class_AllTypes"));
+                if (!transaction.hasTable("class_AllTypes")) {
+                    AllTypesRealmProxy.initTable(transaction);
+                }
+                table.addColumnLink(ColumnType.LINK_LIST, "columnRealmList", transaction.getTable("class_AllTypes"));
+                table.setIndex(table.getColumnIndex("columnString"));
+                table.setPrimaryKey("columnString");
+                return table;
+            }
+            return transaction.getTable("class_AllTypes");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_AllTypes")) {
+                Table table = transaction.getTable("class_AllTypes");
+                if(table.getColumnCount() != 9) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 9; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("columnString")) {
+                    throw new IllegalStateException("Missing column 'columnString'");
+                }
+                if (columnTypes.get("columnString") != ColumnType.STRING) {
+                    throw new IllegalStateException("Invalid type 'String' for column 'columnString'");
+                }
+                if (!columnTypes.containsKey("columnLong")) {
+                    throw new IllegalStateException("Missing column 'columnLong'");
+                }
+                if (columnTypes.get("columnLong") != ColumnType.INTEGER) {
+                    throw new IllegalStateException("Invalid type 'long' for column 'columnLong'");
+                }
+                if (!columnTypes.containsKey("columnFloat")) {
+                    throw new IllegalStateException("Missing column 'columnFloat'");
+                }
+                if (columnTypes.get("columnFloat") != ColumnType.FLOAT) {
+                    throw new IllegalStateException("Invalid type 'float' for column 'columnFloat'");
+                }
+                if (!columnTypes.containsKey("columnDouble")) {
+                    throw new IllegalStateException("Missing column 'columnDouble'");
+                }
+                if (columnTypes.get("columnDouble") != ColumnType.DOUBLE) {
+                    throw new IllegalStateException("Invalid type 'double' for column 'columnDouble'");
+                }
+                if (!columnTypes.containsKey("columnBoolean")) {
+                    throw new IllegalStateException("Missing column 'columnBoolean'");
+                }
+                if (columnTypes.get("columnBoolean") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'columnBoolean'");
+                }
+                if (!columnTypes.containsKey("columnDate")) {
+                    throw new IllegalStateException("Missing column 'columnDate'");
+                }
+                if (columnTypes.get("columnDate") != ColumnType.DATE) {
+                    throw new IllegalStateException("Invalid type 'Date' for column 'columnDate'");
+                }
+                if (!columnTypes.containsKey("columnBinary")) {
+                    throw new IllegalStateException("Missing column 'columnBinary'");
+                }
+                if (columnTypes.get("columnBinary") != ColumnType.BINARY) {
+                    throw new IllegalStateException("Invalid type 'byte[]' for column 'columnBinary'");
+                }
+                if (!columnTypes.containsKey("columnObject")) {
+                    throw new IllegalStateException("Missing column 'columnObject'");
+                }
+                if (columnTypes.get("columnObject") != ColumnType.LINK) {
+                    throw new IllegalStateException("Invalid type 'AllTypes' for column 'columnObject'");
+                }
+                if (!transaction.hasTable("class_AllTypes")) {
+                    throw new IllegalStateException("Missing table 'class_AllTypes' for column 'columnObject'");
+                }
+                if(!columnTypes.containsKey("columnRealmList")) {
+                    throw new IllegalStateException("Missing column 'columnRealmList'");
+                }
+                if(columnTypes.get("columnRealmList") != ColumnType.LINK_LIST) {
+                    throw new IllegalStateException("Invalid type 'AllTypes' for column 'columnRealmList'");
+                }
+                if (!transaction.hasTable("class_AllTypes")) {
+                    throw new IllegalStateException("Missing table 'class_AllTypes' for column 'columnRealmList'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type AllTypes");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_COLUMNSTRING = table.getColumnIndex("columnString");
+                INDEX_COLUMNLONG = table.getColumnIndex("columnLong");
+                INDEX_COLUMNFLOAT = table.getColumnIndex("columnFloat");
+                INDEX_COLUMNDOUBLE = table.getColumnIndex("columnDouble");
+                INDEX_COLUMNBOOLEAN = table.getColumnIndex("columnBoolean");
+                INDEX_COLUMNDATE = table.getColumnIndex("columnDate");
+                INDEX_COLUMNBINARY = table.getColumnIndex("columnBinary");
+                INDEX_COLUMNOBJECT = table.getColumnIndex("columnObject");
+                INDEX_COLUMNREALMLIST = table.getColumnIndex("columnRealmList");
+            } else {
+                throw new RealmMigrationNeededException("The AllTypes class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(AllTypes obj, JSONObject json)
+            throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("columnString")) {
+                obj.setColumnString((String) json.getString("columnString"));
+            }
+            if (!json.isNull("columnLong")) {
+                obj.setColumnLong((long) json.getLong("columnLong"));
+            }
+            if (!json.isNull("columnFloat")) {
+                obj.setColumnFloat((float) json.getDouble("columnFloat"));
+            }
+            if (!json.isNull("columnDouble")) {
+                obj.setColumnDouble((double) json.getDouble("columnDouble"));
+            }
+            if (!json.isNull("columnBoolean")) {
+                obj.setColumnBoolean((boolean) json.getBoolean("columnBoolean"));
+            }
+            if (!json.isNull("columnDate")) {
+                Object timestamp = json.get("columnDate");
+                if (timestamp instanceof String) {
+                    obj.setColumnDate(JsonUtils.stringToDate((String) timestamp));
+                } else {
+                    obj.setColumnDate(new Date(json.getLong("columnDate")));
+                }
+            } else {
+                obj.setColumnDate(new Date(0));
+            }
+            obj.setColumnBinary(JsonUtils.stringToBytes(json.isNull("columnBinary") ? null : json.getString("columnBinary")));
+            if (!json.isNull("columnObject")) {
+                some.test.AllTypes columnObject = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                AllTypesRealmProxy.populateUsingJsonObject(columnObject, json.getJSONObject("columnObject"));
+                obj.setColumnObject(columnObject);
+            }
+            if (!json.isNull("columnRealmList")) {
+                if (standalone) {
+                    obj.setColumnRealmList(new RealmList<some.test.AllTypes>());
+                }
+                JSONArray array = json.getJSONArray("columnRealmList");
+                for (int i = 0; i < array.length(); i++) {
+                    some.test.AllTypes item = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                    AllTypesRealmProxy.populateUsingJsonObject(item, array.getJSONObject(i));
+                    obj.getColumnRealmList().add(item);
+                }
+            }
+        }
+
+        public static void populateUsingJsonStream(AllTypes obj, JsonReader reader)
+            throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("columnString") && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnString((String) reader.nextString());
+                } else if (name.equals("columnLong")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnLong((long) reader.nextLong());
+                } else if (name.equals("columnFloat")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnFloat((float) reader.nextDouble());
+                } else if (name.equals("columnDouble")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnDouble((double) reader.nextDouble());
+                } else if (name.equals("columnBoolean")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnBoolean((boolean) reader.nextBoolean());
+                } else if (name.equals("columnDate")  && reader.peek() != JsonToken.NULL) {
+                    if (reader.peek() == JsonToken.NUMBER) {
+                        long timestamp = reader.nextLong();
+                        if (timestamp > -1) {
+                            obj.setColumnDate(new Date(timestamp));
+                        }
+                    } else {
+                        obj.setColumnDate(JsonUtils.stringToDate(reader.nextString()));
+                    }
+                } else if (name.equals("columnBinary")  && reader.peek() != JsonToken.NULL) {
+                    obj.setColumnBinary(JsonUtils.stringToBytes(reader.nextString()));
+                } else if (name.equals("columnObject")  && reader.peek() != JsonToken.NULL) {
+                    some.test.AllTypes columnObjectObj = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                    AllTypesRealmProxy.populateUsingJsonStream(columnObjectObj, reader);
+                    obj.setColumnObject(columnObjectObj);
+                } else if (name.equals("columnRealmList")  && reader.peek() != JsonToken.NULL) {
+                    reader.beginArray();
+                    if (standalone) {
+                        obj.setColumnRealmList(new RealmList<some.test.AllTypes>());
+                    }
+                    while (reader.hasNext()) {
+                        some.test.AllTypes item = standalone ? new some.test.AllTypes() : obj.realm.createObject(some.test.AllTypes.class);
+                        AllTypesRealmProxy.populateUsingJsonStream(item, reader);
+                        obj.getColumnRealmList().add(item);
+                    }
+                    reader.endArray();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static AllTypes copyOrUpdate(Realm realm, AllTypes object, boolean update, Map<RealmObject,RealmObject> cache) {
+            if (object.realm != null && object.realm.getId() == realm.getId()) {
+                return object;
+            }
+            AllTypes realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(AllTypes.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                long rowIndex = table.findFirstString(pkColumnIndex, object.getColumnString());
+                if (rowIndex != TableOrView.NO_MATCH) {
+                    realmObject = new AllTypesRealmProxy();
+                    realmObject.realm = realm;
+                    realmObject.row = table.getRow(rowIndex);
+                    cache.put(object, realmObject);
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+
+        public static AllTypes copy(Realm realm, AllTypes newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            AllTypes realmObject = realm.createObject(AllTypes.class, newObject.getColumnString());
+            cache.put(newObject, realmObject);
+            realmObject.setColumnString(newObject.getColumnString() != null ? newObject.getColumnString() : "");
+            realmObject.setColumnLong(newObject.getColumnLong());
+            realmObject.setColumnFloat(newObject.getColumnFloat());
+            realmObject.setColumnDouble(newObject.getColumnDouble());
+            realmObject.setColumnBoolean(newObject.isColumnBoolean());
+            realmObject.setColumnDate(newObject.getColumnDate() != null ? newObject.getColumnDate() : new Date(0));
+            realmObject.setColumnBinary(newObject.getColumnBinary() != null ? newObject.getColumnBinary() : new byte[0]);
+
+            some.test.AllTypes columnObjectObj = newObject.getColumnObject();
+            if (columnObjectObj != null) {
+                some.test.AllTypes cachecolumnObject = (some.test.AllTypes) cache.get(columnObjectObj);
+                if (cachecolumnObject != null) {
+                    realmObject.setColumnObject(cachecolumnObject);
+                } else {
+                    realmObject.setColumnObject(AllTypesRealmProxy.copyOrUpdate(realm, columnObjectObj, update, cache));
+                }
+            }
+
+            RealmList<AllTypes> columnRealmListList = newObject.getColumnRealmList();
+            if (columnRealmListList != null) {
+                RealmList<AllTypes> columnRealmListRealmList = realmObject.getColumnRealmList();
+                for (int i = 0; i < columnRealmListList.size(); i++) {
+                    AllTypes columnRealmListItem = columnRealmListList.get(i);
+                    AllTypes cachecolumnRealmList = (AllTypes) cache.get(columnRealmListItem);
+                    if (cachecolumnRealmList != null) {
+                        columnRealmListRealmList.add(cachecolumnRealmList);
+                    } else {
+                        columnRealmListRealmList.add(AllTypesRealmProxy.copyOrUpdate(realm, columnRealmListList.get(i), update, cache));
+                    }
+                }
+            }
+
+            return realmObject;
+        }
+
+        static AllTypes update(Realm realm, AllTypes realmObject, AllTypes newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setColumnLong(newObject.getColumnLong());
+            realmObject.setColumnFloat(newObject.getColumnFloat());
+            realmObject.setColumnDouble(newObject.getColumnDouble());
+            realmObject.setColumnBoolean(newObject.isColumnBoolean());
+            realmObject.setColumnDate(newObject.getColumnDate() != null ? newObject.getColumnDate() : new Date(0));
+            realmObject.setColumnBinary(newObject.getColumnBinary() != null ? newObject.getColumnBinary() : new byte[0]);
+            AllTypes columnObjectObj = newObject.getColumnObject();
+            if (columnObjectObj != null) {
+                AllTypes cachecolumnObject = (AllTypes) cache.get(columnObjectObj);
+                if (cachecolumnObject != null) {
+                    realmObject.setColumnObject(cachecolumnObject);
+                } else {
+                    realmObject.setColumnObject(AllTypesRealmProxy.copyOrUpdate(realm, columnObjectObj, true, cache));
+                }
+            } else {
+                realmObject.setColumnObject(null);
+            }
+            RealmList<AllTypes> columnRealmListList = newObject.getColumnRealmList();
+            RealmList<AllTypes> columnRealmListRealmList = realmObject.getColumnRealmList();
+            columnRealmListRealmList.clear();
+            if (columnRealmListList != null) {
+                for (int i = 0; i < columnRealmListList.size(); i++) {
+                    AllTypes columnRealmListItem = columnRealmListList.get(i);
+                    AllTypes cachecolumnRealmList = (AllTypes) cache.get(columnRealmListItem);
+                    if (cachecolumnRealmList != null) {
+                        columnRealmListRealmList.add(cachecolumnRealmList);
+                    } else {
+                        columnRealmListRealmList.add(AllTypesRealmProxy.copyOrUpdate(realm, columnRealmListList.get(i), true, cache));
+                    }
+                }
+            }
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("AllTypes = [");
+            stringBuilder.append("{columnString:");
+            stringBuilder.append(getColumnString());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnLong:");
+            stringBuilder.append(getColumnLong());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnFloat:");
+            stringBuilder.append(getColumnFloat());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnDouble:");
+            stringBuilder.append(getColumnDouble());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnBoolean:");
+            stringBuilder.append(isColumnBoolean());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnDate:");
+            stringBuilder.append(getColumnDate());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnBinary:");
+            stringBuilder.append(getColumnBinary());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnObject:");
+            stringBuilder.append(getColumnObject() != null ? "AllTypes" : "null");
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{columnRealmList:");
+            stringBuilder.append("RealmList<AllTypes>[").append(getColumnRealmList().size()).append("]");
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            AllTypesRealmProxy aAllTypes = (AllTypesRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aAllTypes.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aAllTypes.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aAllTypes.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:27)
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:23)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.failWithCandidate(JavaSourcesSubject.java:233)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.parsesAs(JavaSourcesSubject.java:195)
+        at com.google.testing.compile.JavaSourcesSubject.parsesAs(JavaSourcesSubject.java:74)
+        at com.google.testing.compile.JavaSourcesSubject$SuccessfulCompilationBuilder.generatesSources(JavaSourcesSubject.java:444)
+        at io.realm.processor.RealmProcessorTest.compareProcessedAllTypesFile(RealmProcessorTest.java:109)
+
+io.realm.processor.RealmProcessorTest > compareProcessedBooleansFile FAILED
+    java.lang.AssertionError: 
+    Source declared the same top-level types of an expected source, but
+    didn't match exactly.
+
+    Expected file: </Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test/io/realm/BooleansRealmProxy.java>
+    Actual file: </SOURCE_OUTPUT/io/realm/BooleansRealmProxy.java>
+
+    Diffs:
+    ======
+
+    Found 1 unmatched nodes in the actual tree. 
+
+    > Extra node in actual tree.
+      Line 181 COMPILATION_UNIT->CLASS(BooleansRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->RETURN
+      Node contents: <return copy(realm, object, update, cache);>.
+  
+
+    Found 1 nodes that differed in expected and actual trees. 
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 178 COMPILATION_UNIT->CLASS(BooleansRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->RETURN->RETURN
+      Actual node: Line 178 COMPILATION_UNIT->CLASS(BooleansRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->IF
+      Expected node kind to be <RETURN> but was <IF>.
+
+
+    Expected Source: 
+    ================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.Booleans;
+
+    public class BooleansRealmProxy extends Booleans {
+
+        private static long INDEX_DONE;
+        private static long INDEX_ISREADY;
+        private static long INDEX_MCOMPLETED;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("done");
+            fieldNames.add("isReady");
+            fieldNames.add("mCompleted");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public boolean isDone() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_DONE);
+        }
+
+        @Override
+        public void setDone(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_DONE, (boolean) value);
+        }
+
+        @Override
+        public boolean isReady() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_ISREADY);
+        }
+
+        @Override
+        public void setReady(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_ISREADY, (boolean) value);
+        }
+
+        @Override
+        public boolean ismCompleted() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_MCOMPLETED);
+        }
+
+        @Override
+        public void setmCompleted(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_MCOMPLETED, (boolean) value);
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_Booleans")) {
+                Table table = transaction.getTable("class_Booleans");
+                table.addColumn(ColumnType.BOOLEAN, "done");
+                table.addColumn(ColumnType.BOOLEAN, "isReady");
+                table.addColumn(ColumnType.BOOLEAN, "mCompleted");
+                table.setPrimaryKey("");
+                return table;
+            }
+            return transaction.getTable("class_Booleans");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_Booleans")) {
+                Table table = transaction.getTable("class_Booleans");
+                if(table.getColumnCount() != 3) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 3; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("done")) {
+                    throw new IllegalStateException("Missing column 'done'");
+                }
+                if (columnTypes.get("done") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'done'");
+                }
+                if (!columnTypes.containsKey("isReady")) {
+                    throw new IllegalStateException("Missing column 'isReady'");
+                }
+                if (columnTypes.get("isReady") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'isReady'");
+                }
+                if (!columnTypes.containsKey("mCompleted")) {
+                    throw new IllegalStateException("Missing column 'mCompleted'");
+                }
+                if (columnTypes.get("mCompleted") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'mCompleted'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type Booleans");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_DONE = table.getColumnIndex("done");
+                INDEX_ISREADY = table.getColumnIndex("isReady");
+                INDEX_MCOMPLETED = table.getColumnIndex("mCompleted");
+            } else {
+                throw new RealmMigrationNeededException("The Booleans class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(Booleans obj, JSONObject json)
+                throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("done")) {
+                obj.setDone((boolean) json.getBoolean("done"));
+            }
+            if (!json.isNull("isReady")) {
+                obj.setReady((boolean) json.getBoolean("isReady"));
+            }
+            if (!json.isNull("mCompleted")) {
+                obj.setmCompleted((boolean) json.getBoolean("mCompleted"));
+            }
+        }
+
+        public static void populateUsingJsonStream(Booleans obj, JsonReader reader)
+                throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("done") && reader.peek() != JsonToken.NULL) {
+                    obj.setDone((boolean) reader.nextBoolean());
+                } else if (name.equals("isReady")  && reader.peek() != JsonToken.NULL) {
+                    obj.setReady((boolean) reader.nextBoolean());
+                } else if (name.equals("mCompleted")  && reader.peek() != JsonToken.NULL) {
+                    obj.setmCompleted((boolean) reader.nextBoolean());
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static Booleans copyOrUpdate(Realm realm, Booleans object, boolean update, Map<RealmObject,RealmObject> cache) {
+            return copy(realm, object, update, cache);
+        }
+
+        public static Booleans copy(Realm realm, Booleans newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            Booleans realmObject = realm.createObject(Booleans.class);
+            cache.put(newObject, realmObject);
+            realmObject.setDone(newObject.isDone());
+            realmObject.setReady(newObject.isReady());
+            realmObject.setmCompleted(newObject.ismCompleted());
+            return realmObject;
+        }
+
+        static Booleans update(Realm realm, Booleans realmObject, Booleans newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setDone(newObject.isDone());
+            realmObject.setReady(newObject.isReady());
+            realmObject.setmCompleted(newObject.ismCompleted());
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("Booleans = [");
+            stringBuilder.append("{done:");
+            stringBuilder.append(isDone());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{isReady:");
+            stringBuilder.append(isReady());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{mCompleted:");
+            stringBuilder.append(ismCompleted());
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            BooleansRealmProxy aBooleans = (BooleansRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aBooleans.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aBooleans.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aBooleans.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+
+    Actual Source:
+    =================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.Booleans;
+
+    public class BooleansRealmProxy extends Booleans {
+
+        private static long INDEX_DONE;
+        private static long INDEX_ISREADY;
+        private static long INDEX_MCOMPLETED;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("done");
+            fieldNames.add("isReady");
+            fieldNames.add("mCompleted");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public boolean isDone() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_DONE);
+        }
+
+        @Override
+        public void setDone(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_DONE, (boolean) value);
+        }
+
+        @Override
+        public boolean isReady() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_ISREADY);
+        }
+
+        @Override
+        public void setReady(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_ISREADY, (boolean) value);
+        }
+
+        @Override
+        public boolean ismCompleted() {
+            realm.checkIfValid();
+            return (boolean) row.getBoolean(INDEX_MCOMPLETED);
+        }
+
+        @Override
+        public void setmCompleted(boolean value) {
+            realm.checkIfValid();
+            row.setBoolean(INDEX_MCOMPLETED, (boolean) value);
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_Booleans")) {
+                Table table = transaction.getTable("class_Booleans");
+                table.addColumn(ColumnType.BOOLEAN, "done");
+                table.addColumn(ColumnType.BOOLEAN, "isReady");
+                table.addColumn(ColumnType.BOOLEAN, "mCompleted");
+                table.setPrimaryKey("");
+                return table;
+            }
+            return transaction.getTable("class_Booleans");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_Booleans")) {
+                Table table = transaction.getTable("class_Booleans");
+                if(table.getColumnCount() != 3) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 3; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("done")) {
+                    throw new IllegalStateException("Missing column 'done'");
+                }
+                if (columnTypes.get("done") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'done'");
+                }
+                if (!columnTypes.containsKey("isReady")) {
+                    throw new IllegalStateException("Missing column 'isReady'");
+                }
+                if (columnTypes.get("isReady") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'isReady'");
+                }
+                if (!columnTypes.containsKey("mCompleted")) {
+                    throw new IllegalStateException("Missing column 'mCompleted'");
+                }
+                if (columnTypes.get("mCompleted") != ColumnType.BOOLEAN) {
+                    throw new IllegalStateException("Invalid type 'boolean' for column 'mCompleted'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type Booleans");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_DONE = table.getColumnIndex("done");
+                INDEX_ISREADY = table.getColumnIndex("isReady");
+                INDEX_MCOMPLETED = table.getColumnIndex("mCompleted");
+            } else {
+                throw new RealmMigrationNeededException("The Booleans class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(Booleans obj, JSONObject json)
+            throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("done")) {
+                obj.setDone((boolean) json.getBoolean("done"));
+            }
+            if (!json.isNull("isReady")) {
+                obj.setReady((boolean) json.getBoolean("isReady"));
+            }
+            if (!json.isNull("mCompleted")) {
+                obj.setmCompleted((boolean) json.getBoolean("mCompleted"));
+            }
+        }
+
+        public static void populateUsingJsonStream(Booleans obj, JsonReader reader)
+            throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("done") && reader.peek() != JsonToken.NULL) {
+                    obj.setDone((boolean) reader.nextBoolean());
+                } else if (name.equals("isReady")  && reader.peek() != JsonToken.NULL) {
+                    obj.setReady((boolean) reader.nextBoolean());
+                } else if (name.equals("mCompleted")  && reader.peek() != JsonToken.NULL) {
+                    obj.setmCompleted((boolean) reader.nextBoolean());
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static Booleans copyOrUpdate(Realm realm, Booleans object, boolean update, Map<RealmObject,RealmObject> cache) {
+            if (object.realm != null && object.realm.getId() == realm.getId()) {
+                return object;
+            }
+            return copy(realm, object, update, cache);
+        }
+
+        public static Booleans copy(Realm realm, Booleans newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            Booleans realmObject = realm.createObject(Booleans.class);
+            cache.put(newObject, realmObject);
+            realmObject.setDone(newObject.isDone());
+            realmObject.setReady(newObject.isReady());
+            realmObject.setmCompleted(newObject.ismCompleted());
+            return realmObject;
+        }
+
+        static Booleans update(Realm realm, Booleans realmObject, Booleans newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setDone(newObject.isDone());
+            realmObject.setReady(newObject.isReady());
+            realmObject.setmCompleted(newObject.ismCompleted());
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("Booleans = [");
+            stringBuilder.append("{done:");
+            stringBuilder.append(isDone());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{isReady:");
+            stringBuilder.append(isReady());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{mCompleted:");
+            stringBuilder.append(ismCompleted());
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            BooleansRealmProxy aBooleans = (BooleansRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aBooleans.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aBooleans.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aBooleans.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:27)
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:23)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.failWithCandidate(JavaSourcesSubject.java:233)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.parsesAs(JavaSourcesSubject.java:195)
+        at com.google.testing.compile.JavaSourcesSubject.parsesAs(JavaSourcesSubject.java:74)
+        at com.google.testing.compile.JavaSourcesSubject$SuccessfulCompilationBuilder.generatesSources(JavaSourcesSubject.java:444)
+        at io.realm.processor.RealmProcessorTest.compareProcessedBooleansFile(RealmProcessorTest.java:141)
+
+io.realm.processor.RealmProcessorTest > compareProcessedSimpleFile FAILED
+    java.lang.AssertionError: 
+    Source declared the same top-level types of an expected source, but
+    didn't match exactly.
+
+    Expected file: </Users/cm/Realm/realm-java/realm-annotations-processor/build/resources/test/io/realm/SimpleRealmProxy.java>
+    Actual file: </SOURCE_OUTPUT/io/realm/SimpleRealmProxy.java>
+
+    Diffs:
+    ======
+
+    Found 1 unmatched nodes in the actual tree. 
+
+    > Extra node in actual tree.
+      Line 154 COMPILATION_UNIT->CLASS(SimpleRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->RETURN
+      Node contents: <return copy(realm, object, update, cache);>.
+  
+
+    Found 1 nodes that differed in expected and actual trees. 
+
+    > Difference in expected tree and actual tree.
+      Expected node: Line 151 COMPILATION_UNIT->CLASS(SimpleRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->RETURN->RETURN
+      Actual node: Line 151 COMPILATION_UNIT->CLASS(SimpleRealmProxy)->METHOD(copyOrUpdate)->BLOCK(non-static)->IF->IF
+      Expected node kind to be <RETURN> but was <IF>.
+
+
+    Expected Source: 
+    ================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.Simple;
+
+    public class SimpleRealmProxy extends Simple {
+
+        private static long INDEX_NAME;
+        private static long INDEX_AGE;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("name");
+            fieldNames.add("age");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public String getName() {
+            realm.checkIfValid();
+            return (java.lang.String) row.getString(INDEX_NAME);
+        }
+
+        @Override
+        public void setName(String value) {
+            realm.checkIfValid();
+            row.setString(INDEX_NAME, (String) value);
+        }
+
+        @Override
+        public int getAge() {
+            realm.checkIfValid();
+            return (int) row.getLong(INDEX_AGE);
+        }
+
+        @Override
+        public void setAge(int value) {
+            realm.checkIfValid();
+            row.setLong(INDEX_AGE, (long) value);
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_Simple")) {
+                Table table = transaction.getTable("class_Simple");
+                table.addColumn(ColumnType.STRING, "name");
+                table.addColumn(ColumnType.INTEGER, "age");
+                table.setPrimaryKey("");
+                return table;
+            }
+            return transaction.getTable("class_Simple");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_Simple")) {
+                Table table = transaction.getTable("class_Simple");
+                if(table.getColumnCount() != 2) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 2; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("name")) {
+                    throw new IllegalStateException("Missing column 'name'");
+                }
+                if (columnTypes.get("name") != ColumnType.STRING) {
+                    throw new IllegalStateException("Invalid type 'String' for column 'name'");
+                }
+                if (!columnTypes.containsKey("age")) {
+                    throw new IllegalStateException("Missing column 'age'");
+                }
+                if (columnTypes.get("age") != ColumnType.INTEGER) {
+                    throw new IllegalStateException("Invalid type 'int' for column 'age'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type Simple");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_NAME = table.getColumnIndex("name");
+                INDEX_AGE = table.getColumnIndex("age");
+            } else {
+                throw new RealmMigrationNeededException("The Simple class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(Simple obj, JSONObject json)
+                throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("name")) {
+                obj.setName((String) json.getString("name"));
+            }
+            if (!json.isNull("age")) {
+                obj.setAge((int) json.getInt("age"));
+            }
+        }
+
+        public static void populateUsingJsonStream(Simple obj, JsonReader reader)
+                throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("name") && reader.peek() != JsonToken.NULL) {
+                    obj.setName((String) reader.nextString());
+                } else if (name.equals("age")  && reader.peek() != JsonToken.NULL) {
+                    obj.setAge((int) reader.nextInt());
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static Simple copyOrUpdate(Realm realm, Simple object, boolean update, Map<RealmObject,RealmObject> cache) {
+            return copy(realm, object, update, cache);
+        }
+
+        public static Simple copy(Realm realm, Simple newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            Simple realmObject = realm.createObject(Simple.class);
+            cache.put(newObject, realmObject);
+            realmObject.setName(newObject.getName() != null ? newObject.getName() : "");
+            realmObject.setAge(newObject.getAge());
+            return realmObject;
+        }
+
+        static Simple update(Realm realm, Simple realmObject, Simple newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setName(newObject.getName() != null ? newObject.getName() : "");
+            realmObject.setAge(newObject.getAge());
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("Simple = [");
+            stringBuilder.append("{name:");
+            stringBuilder.append(getName());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{age:");
+            stringBuilder.append(getAge());
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SimpleRealmProxy aSimple = (SimpleRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aSimple.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aSimple.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aSimple.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+
+    Actual Source:
+    =================
+
+    package io.realm;
+
+
+    import android.util.JsonReader;
+    import android.util.JsonToken;
+    import io.realm.RealmObject;
+    import io.realm.exceptions.RealmException;
+    import io.realm.exceptions.RealmMigrationNeededException;
+    import io.realm.internal.ColumnType;
+    import io.realm.internal.ImplicitTransaction;
+    import io.realm.internal.LinkView;
+    import io.realm.internal.Table;
+    import io.realm.internal.TableOrView;
+    import io.realm.internal.android.JsonUtils;
+    import java.io.IOException;
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.Collections;
+    import java.util.Date;
+    import java.util.HashMap;
+    import java.util.List;
+    import java.util.Map;
+    import org.json.JSONArray;
+    import org.json.JSONException;
+    import org.json.JSONObject;
+    import some.test.Simple;
+
+    public class SimpleRealmProxy extends Simple {
+
+        private static long INDEX_NAME;
+        private static long INDEX_AGE;
+        private static Map<String, Long> columnIndices;
+        private static final List<String> FIELD_NAMES;
+        static {
+            List<String> fieldNames = new ArrayList<String>();
+            fieldNames.add("name");
+            fieldNames.add("age");
+            FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+        }
+
+        @Override
+        public String getName() {
+            realm.checkIfValid();
+            return (java.lang.String) row.getString(INDEX_NAME);
+        }
+
+        @Override
+        public void setName(String value) {
+            realm.checkIfValid();
+            row.setString(INDEX_NAME, (String) value);
+        }
+
+        @Override
+        public int getAge() {
+            realm.checkIfValid();
+            return (int) row.getLong(INDEX_AGE);
+        }
+
+        @Override
+        public void setAge(int value) {
+            realm.checkIfValid();
+            row.setLong(INDEX_AGE, (long) value);
+        }
+
+        public static Table initTable(ImplicitTransaction transaction) {
+            if(!transaction.hasTable("class_Simple")) {
+                Table table = transaction.getTable("class_Simple");
+                table.addColumn(ColumnType.STRING, "name");
+                table.addColumn(ColumnType.INTEGER, "age");
+                table.setPrimaryKey("");
+                return table;
+            }
+            return transaction.getTable("class_Simple");
+        }
+
+        public static void validateTable(ImplicitTransaction transaction) {
+            if(transaction.hasTable("class_Simple")) {
+                Table table = transaction.getTable("class_Simple");
+                if(table.getColumnCount() != 2) {
+                    throw new IllegalStateException("Column count does not match");
+                }
+                Map<String, ColumnType> columnTypes = new HashMap<String, ColumnType>();
+                for(long i = 0; i < 2; i++) {
+                    columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+                }
+                if (!columnTypes.containsKey("name")) {
+                    throw new IllegalStateException("Missing column 'name'");
+                }
+                if (columnTypes.get("name") != ColumnType.STRING) {
+                    throw new IllegalStateException("Invalid type 'String' for column 'name'");
+                }
+                if (!columnTypes.containsKey("age")) {
+                    throw new IllegalStateException("Missing column 'age'");
+                }
+                if (columnTypes.get("age") != ColumnType.INTEGER) {
+                    throw new IllegalStateException("Invalid type 'int' for column 'age'");
+                }
+
+                columnIndices = new HashMap<String, Long>();
+                for (String fieldName : getFieldNames()) {
+                    long index = table.getColumnIndex(fieldName);
+                    if (index == -1) {
+                        throw new RealmMigrationNeededException("Field '" + fieldName + "' not found for type Simple");
+                    }
+                    columnIndices.put(fieldName, index);
+                }
+                INDEX_NAME = table.getColumnIndex("name");
+                INDEX_AGE = table.getColumnIndex("age");
+            } else {
+                throw new RealmMigrationNeededException("The Simple class is missing from the schema for this Realm.");
+            }
+        }
+
+        public static List<String> getFieldNames() {
+            return FIELD_NAMES;
+        }
+
+        public static Map<String,Long> getColumnIndices() {
+            return columnIndices;
+        }
+
+        public static void populateUsingJsonObject(Simple obj, JSONObject json)
+            throws JSONException {
+            boolean standalone = obj.realm == null;
+            if (!json.isNull("name")) {
+                obj.setName((String) json.getString("name"));
+            }
+            if (!json.isNull("age")) {
+                obj.setAge((int) json.getInt("age"));
+            }
+        }
+
+        public static void populateUsingJsonStream(Simple obj, JsonReader reader)
+            throws IOException {
+            boolean standalone = obj.realm == null;
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("name") && reader.peek() != JsonToken.NULL) {
+                    obj.setName((String) reader.nextString());
+                } else if (name.equals("age")  && reader.peek() != JsonToken.NULL) {
+                    obj.setAge((int) reader.nextInt());
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+        }
+
+        public static Simple copyOrUpdate(Realm realm, Simple object, boolean update, Map<RealmObject,RealmObject> cache) {
+            if (object.realm != null && object.realm.getId() == realm.getId()) {
+                return object;
+            }
+            return copy(realm, object, update, cache);
+        }
+
+        public static Simple copy(Realm realm, Simple newObject, boolean update, Map<RealmObject,RealmObject> cache) {
+            Simple realmObject = realm.createObject(Simple.class);
+            cache.put(newObject, realmObject);
+            realmObject.setName(newObject.getName() != null ? newObject.getName() : "");
+            realmObject.setAge(newObject.getAge());
+            return realmObject;
+        }
+
+        static Simple update(Realm realm, Simple realmObject, Simple newObject, Map<RealmObject, RealmObject> cache) {
+            realmObject.setName(newObject.getName() != null ? newObject.getName() : "");
+            realmObject.setAge(newObject.getAge());
+            return realmObject;
+        }
+
+        @Override
+        public String toString() {
+            if (!isValid()) {
+                return "Invalid object";
+            }
+            StringBuilder stringBuilder = new StringBuilder("Simple = [");
+            stringBuilder.append("{name:");
+            stringBuilder.append(getName());
+            stringBuilder.append("}");
+            stringBuilder.append(",");
+            stringBuilder.append("{age:");
+            stringBuilder.append(getAge());
+            stringBuilder.append("}");
+            stringBuilder.append("]");
+            return stringBuilder.toString();
+        }
+
+        @Override
+        public int hashCode() {
+            String realmName = realm.getPath();
+            String tableName = row.getTable().getName();
+            long rowIndex = row.getIndex();
+
+            int result = 17;
+            result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+            result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+            result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SimpleRealmProxy aSimple = (SimpleRealmProxy)o;
+
+            String path = realm.getPath();
+            String otherPath = aSimple.realm.getPath();
+            if (path != null ? !path.equals(otherPath) : otherPath != null) return false;;
+
+            String tableName = row.getTable().getName();
+            String otherTableName = aSimple.row.getTable().getName();
+            if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+            if (row.getIndex() != aSimple.row.getIndex()) return false;
+
+            return true;
+        }
+
+    }
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:27)
+        at com.google.common.truth.FailureStrategy.fail(FailureStrategy.java:23)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.failWithCandidate(JavaSourcesSubject.java:233)
+        at com.google.testing.compile.JavaSourcesSubject$CompilationClause.parsesAs(JavaSourcesSubject.java:195)
+        at com.google.testing.compile.JavaSourcesSubject.parsesAs(JavaSourcesSubject.java:74)
+        at com.google.testing.compile.JavaSourcesSubject$SuccessfulCompilationBuilder.generatesSources(JavaSourcesSubject.java:444)
+        at io.realm.processor.RealmProcessorTest.compareProcessedSimpleFile(RealmProcessorTest.java:77)
+Gradle Test Executor 1 finished executing tests.
+Finished generating test XML results (0.039 secs) into: /Users/cm/Realm/realm-java/realm-annotations-processor/build/test-results
+Generating HTML test report...
+Finished generating test html results (0.029 secs) into: /Users/cm/Realm/realm-java/realm-annotations-processor/build/reports/tests
+:test FAILED
+:test (Thread[main,5,main]) completed. Took 3.337 secs.
+
+BUILD FAILED
+
+Total time: 7.226 secs
+Stopped 0 compiler daemon(s).

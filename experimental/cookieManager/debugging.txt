@@ -1,0 +1,96 @@
+Things that all causes the crash to not happen
+
+- Removing CookieManager.getInstance() from onPostExcute()
+- Move CookieManager to before starting AsyncTasks
+- Disabling encryption on the Realm
+- Only happens on real devices. Seen on Nexus 5 and Nexus 7 with Android 5.1 and Android 5.0.2
+- Only having one RealmObject with 10 fields.
+- Only having 1 field in 15 RealmObjects
+- Removing SystemClock.sleep(), but not always it makes the crash come and go.
+- Run same code on x86 emulator
+- Run same code on arm emulator
+
+What doesn't remove the crash
+- Having @PrimaryKey on all objects doesn't make a difference
+
+Current thesis:
+- Race condition somewhere.
+- CookieManager calls down to Chromimum CookieManager on Android 5+, which also uses OpenSSL. Somehow our usage conflicts
+  with theirs.
+
+
+Missing tests:
+- Run project on an older actual device.
+
+-- JNI Debug log up to crash
+....
+04-09 14:09:30.284  16130-16173/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeClose -1362754304
+04-09 14:09:30.372  16130-16173/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeCloseReplication -1362791616
+04-09 14:09:30.387  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeCreateReplication
+04-09 14:09:30.387  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_createNativeWithImplicitTransactions
+04-09 14:09:30.430  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeBeginImplicit -1362728704
+04-09 14:09:30.430  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.430  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativePromoteToWrite -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.431  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.434  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.434  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.434  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.434  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.434  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.435  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.436  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.436  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.437  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.437  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.438  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.438  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.438  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.438  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.439  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.439  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.439  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.439  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.445  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.445  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.445  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.445  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.446  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.446  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.448  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.448  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.449  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeHasTable -1362728704
+04-09 14:09:30.449  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_Group_nativeGetTableNativePtr -1362728704
+04-09 14:09:30.449  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeRollbackAndContinueAsRead -1362728704
+04-09 14:09:30.583  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeClose -1362728704
+04-09 14:09:30.584  16130-16184/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeCloseReplication -1362791456
+04-09 14:09:30.596  16130-16196/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_nativeCreateReplication
+04-09 14:09:30.596  16130-16196/? D/REALM﹕ --> Java_io_realm_internal_SharedGroup_createNativeWithImplicitTransactions
+
+
+-- Example crash
+04-09 11:56:20.399    9896-9937/com.test.testing A/libc﹕ Fatal signal 11 (SIGSEGV), code -6, fault addr 0x26a8 in tid 9937 (AsyncTask #3)
+04-09 11:56:20.505      186-186/? I/DEBUG﹕ *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+04-09 11:56:20.505      186-186/? I/DEBUG﹕ Build fingerprint: 'google/hammerhead/hammerhead:5.1/LMY47D/1743759:user/release-keys'
+04-09 11:56:20.505      186-186/? I/DEBUG﹕ Revision: '11'
+04-09 11:56:20.505      186-186/? I/DEBUG﹕ ABI: 'arm'
+04-09 11:56:20.505      186-186/? I/DEBUG﹕ pid: 9896, tid: 9937, name: AsyncTask #3  >>> com.test.testing <<<
+04-09 11:56:20.506      186-186/? I/DEBUG﹕ signal 11 (SIGSEGV), code -6 (SI_TKILL), fault addr 0xa2816e44
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ r0 a124b300  r1 a124b258  r2 b484a708  r3 00000000
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ r4 a124b300  r5 a2816e40  r6 a124b258  r7 aebf8e2c
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ r8 b5003000  r9 b5003030  sl 00001e40  fp b5003040
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ ip 00000000  sp a124b240  lr aeb8f213  pc aeb8ef2a  cpsr 800b0030
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ backtrace:
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ #00 pc 00060f2a  /data/app/com.test.testing-2/lib/arm/libtightdb-jni.so
+04-09 11:56:20.514      186-186/? I/DEBUG﹕ #01 pc 0006120f  /data/app/com.test.testing-2/lib/arm/libtightdb-jni.so
+
+
+
+
+
+
+
