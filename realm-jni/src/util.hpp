@@ -136,12 +136,14 @@ extern const char *log_tag;
   #if defined(ANDROID)
     #include <android/log.h>
     #define LOG_DEBUG ANDROID_LOG_DEBUG
+    #define LOG(msg) { __android_log_print(ANDROID_LOG_DEBUG, "jni-debug", msg); }
     #define TR_ENTER() if (trace_level >= 1) { __android_log_print(ANDROID_LOG_DEBUG, log_tag, " --> %s", __FUNCTION__); } else {}
     #define TR_ENTER_PTR(ptr) if (trace_level >= 1) { __android_log_print(ANDROID_LOG_DEBUG, log_tag, " --> %s %" PRId64, __FUNCTION__, static_cast<int64_t>(ptr)); } else {}
     #define TR(...) if (trace_level >= 2) { __android_log_print(ANDROID_LOG_DEBUG, log_tag, __VA_ARGS__); } else {}
     #define TR_ERR(...) if (trace_level >= 0) { __android_log_print(ANDROID_LOG_DEBUG, log_tag, __VA_ARGS__); } else {}
     #define TR_LEAVE() if (trace_level >= 3) { __android_log_print(ANDROID_LOG_DEBUG, log_tag, " <-- %s", __FUNCTION__); } else {}
   #else // ANDROID
+    #define LOG(msg)
     #define TR_ENTER()
     #define TR_ENTER_PTR(ptr)
     #define TR(...)
@@ -149,6 +151,7 @@ extern const char *log_tag;
     #define TR_LEAVE()
   #endif
 #else // TRACE - these macros must be empty
+  #define LOG(msg)
   #define TR_ENTER()
   #define TR_ENTER_PTR(ptr)
   #define TR(...)

@@ -17,15 +17,31 @@
 package io.realm.examples.intro.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
-public class Cat extends RealmObject {
-    private String name;
+/**
+ * Created by eboudrant on 1/7/15.
+ */
+@RealmClass
+public class AppPackage extends RealmObject {
 
-    public String getName() {
-        return name;
-    }
+  private String packageId;
+  private AppCategory category;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getPackageId() {
+    return packageId;
+  }
+
+  public void setPackageId(String packageId) {
+    this.packageId = packageId;
+  }
+
+  public AppCategory getCategory() {
+    return category;
+  }
+
+  public void setCategory(AppCategory category) {
+    this.category = category;
+  }
+
 }

@@ -25,10 +25,7 @@ android {
     }
 }
 
-tasks.preBuild {
-    dependsOn ":realm:androidJar"
-}
-
 dependencies {
-    compile files("../../realm/build/libs/realm-${version}.jar")
+//    compile 'io.realm:realm-android:0.79.0' // Don't crash
+    compile 'io.realm:realm-android:0.80.0' // Crash
 }
