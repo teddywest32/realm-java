@@ -26,6 +26,6 @@ android {
 }
 
 dependencies {
-//    compile 'io.realm:realm-android:0.79.0' // Don't crash
-    compile 'io.realm:realm-android:0.80.0' // Crash
+//    compile 'io.realm:realm-android:0.79.0' // Don't crash, core 0.88.2
+    compile 'io.realm:realm-android:0.80.0' // Crash, core 0.89.0
 }
