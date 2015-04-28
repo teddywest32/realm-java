@@ -46,11 +46,11 @@ public class IntroExampleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realm_basic_example);
 
-        Util.setDebugLevel(1); // Enable JNI Debug
+        Util.setDebugLevel(2); // Enable JNI Debug
         Realm.deleteRealmFile(this, Realm.DEFAULT_REALM_NAME);
         copyRealm(this, Realm.DEFAULT_REALM_NAME);
-        Realm realm = Realm.getInstance(this);
-        Test.test(realm); // Run tests in io.realm package to access protected methods
+//        Realm realm = Realm.getInstance(this);
+        Test.test(this); // Run tests in io.realm package to access protected methods
     }
 
     // Copies a Realm file from assets to app files dir
