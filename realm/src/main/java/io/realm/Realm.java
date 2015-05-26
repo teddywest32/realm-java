@@ -16,7 +16,6 @@
 
 package io.realm;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -42,6 +41,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -121,25 +121,29 @@ import io.realm.internal.migration.SetVersionNumberMigration;
 public final class Realm implements Closeable {
     public static final String DEFAULT_REALM_NAME = "default.realm";
 
-    protected static final ThreadLocal<Map<String, Realm>> realmsCache = new ThreadLocal<Map<String, Realm>>() {
-        @SuppressLint("UseSparseArrays")
+    protected static final ThreadLocal<Map<RealmConfiguration, Realm>> threadLocalRealmCache =
+            new ThreadLocal<Map<RealmConfiguration, Realm>>() {
         @Override
-        protected Map<String, Realm> initialValue() {
-            return new HashMap<String, Realm>(); // On Android we could use SparseArray<Realm> which is faster,
-                                                  // but incompatible with Java
+        protected Map<RealmConfiguration, Realm> initialValue() {
+            return new HashMap<RealmConfiguration, Realm>();
         }
     };
-    private static final ThreadLocal<Map<String, Integer>> referenceCount = new ThreadLocal<Map<String,Integer>>() {
-        @SuppressLint("UseSparseArrays")
+
+    private static final ThreadLocal<Map<RealmConfiguration, Integer>> threadLocalReferenceCount =
+            new ThreadLocal<Map<RealmConfiguration,Integer>>() {
         @Override
-        protected Map<String, Integer> initialValue() {
-            return new HashMap<String, Integer>();
+        protected Map<RealmConfiguration, Integer> initialValue() {
+            return new HashMap<RealmConfiguration, Integer>();
         }
     };
-    // Maps ids to a boolean set to true if the Realm is open. This is only needed by deleteRealmFile
-    private static final Map<String, AtomicInteger> openRealms = new ConcurrentHashMap<String, AtomicInteger>();
-    private static final int REALM_CHANGED = 14930352; // Hopefully it won't clash with other message IDs.
+
+    // Map how many times a Realm path has been opened across all threads.
+    // This is only needed by deleteRealmFile.
+    private static final Map<String, AtomicInteger> globalOpenInstanceCounter =
+            new ConcurrentHashMap<String, AtomicInteger>();
+
     protected static final Map<Handler, String> handlers = new ConcurrentHashMap<Handler, String>();
+    private static final int REALM_CHANGED = 14930352; // Hopefully it won't clash with other message IDs.
 
     private static RealmConfiguration defaultConfiguration;
 
@@ -152,14 +156,12 @@ public final class Realm implements Closeable {
     private boolean autoRefresh;
     private Handler handler;
 
-    private final byte[] key;
-    private final String canonicalPath;
+    private RealmConfiguration configuration;
     private SharedGroup sharedGroup;
     private final ImplicitTransaction transaction;
 
     private final List<WeakReference<RealmChangeListener>> changeListeners =
             new CopyOnWriteArrayList<WeakReference<RealmChangeListener>>();
-    protected RealmProxyMediator proxyMediator;
 
     private static final long UNVERSIONED = -1;
 
@@ -176,18 +178,17 @@ public final class Realm implements Closeable {
         }
 
         // Check if we are in the right thread
-        Realm currentRealm = realmsCache.get().get(canonicalPath);
+        Realm currentRealm = threadLocalRealmCache.get().get(configuration);
         if (currentRealm != this) {
             throw new IllegalStateException(INCORRECT_THREAD_MESSAGE);
         }
     }
 
     // The constructor in private to enforce the use of the static one
-    private Realm(String canonicalPath, byte[] key, boolean autoRefresh) {
-        this.sharedGroup = new SharedGroup(canonicalPath, true, key);
+    private Realm(RealmConfiguration configuration, boolean autoRefresh) {
+        this.configuration = configuration;
+        this.sharedGroup = new SharedGroup(configuration.getPath(), true, configuration.getEncryptionKey());
         this.transaction = sharedGroup.beginImplicitTransaction();
-        this.canonicalPath = canonicalPath;
-        this.key = key;
         setAutoRefresh(autoRefresh);
     }
 
@@ -195,7 +196,7 @@ public final class Realm implements Closeable {
     protected void finalize() throws Throwable {
         if (sharedGroup != null) {
             RealmLog.w("Remember to call close() on all Realm instances. " +
-                            "Realm " + canonicalPath + " is being finalized without being closed, " +
+                            "Realm " + configuration.getPath() + " is being finalized without being closed, " +
                             "this can lead to running out of native memory."
             );
         }
@@ -210,18 +211,19 @@ public final class Realm implements Closeable {
      */
     @Override
     public void close() {
-        Map<String, Integer> localRefCount = referenceCount.get();
-        Integer references = localRefCount.get(canonicalPath);
+        Map<RealmConfiguration, Integer> localRefCount = threadLocalReferenceCount.get();
+        String canonicalPath = configuration.getPath();
+        Integer references = localRefCount.get(configuration);
         if (references == null) {
             references = 0;
         }
         if (sharedGroup != null && references == 1) {
-            realmsCache.get().remove(canonicalPath);
+            threadLocalRealmCache.get().remove(configuration);
             sharedGroup.close();
             sharedGroup = null;
-            AtomicInteger counter = openRealms.get(canonicalPath);
+            AtomicInteger counter = globalOpenInstanceCounter.get(canonicalPath);
             if (counter.decrementAndGet() == 0) {
-                openRealms.remove(canonicalPath);
+                globalOpenInstanceCounter.remove(canonicalPath);
             }
         }
 
@@ -229,7 +231,7 @@ public final class Realm implements Closeable {
         if (refCount < 0) {
             RealmLog.w("Calling close() on a Realm that is already closed: " + canonicalPath);
         }
-        localRefCount.put(canonicalPath, Math.max(0, refCount));
+        localRefCount.put(configuration, Math.max(0, refCount));
 
         if (handler != null && refCount <= 0) {
             removeHandler(handler);
@@ -277,7 +279,7 @@ public final class Realm implements Closeable {
 
         if (autoRefresh && !this.autoRefresh) { // Switch it on
             handler = new Handler(new RealmCallback());
-            handlers.put(handler, canonicalPath);
+            handlers.put(handler, configuration.getPath());
         } else if (!autoRefresh && this.autoRefresh && handler != null) { // Switch it off
             removeHandler(handler);
         }
@@ -287,7 +289,7 @@ public final class Realm implements Closeable {
     // Public because of migrations
     public Table getTable(Class<? extends RealmObject> clazz) {
         clazz = Util.getOriginalModelClass(clazz);
-        return transaction.getTable(proxyMediator.getTableName(clazz));
+        return transaction.getTable(configuration.getSchemaMediator().getTableName(clazz));
     }
 
     /**
@@ -367,6 +369,7 @@ public final class Realm implements Closeable {
         if (key != null) {
             builder.encryptionKey(key);
         }
+
         return create(builder.build());
     }
 
@@ -517,52 +520,71 @@ public final class Realm implements Closeable {
         defaultConfiguration = null;
     }
 
-    private static Realm create(RealmConfiguration config) {
+    private static Realm create(RealmConfiguration configuration) {
         boolean autoRefresh = Looper.myLooper() != null;
         try {
-            return createAndValidate(config, true, autoRefresh);
+            return createAndValidate(configuration, true, autoRefresh);
         } catch (RealmMigrationNeededException e) {
-            if (config.shouldDeleteRealmIfMigrationNeeded()) {
-                deleteRealm(config);
+            if (configuration.shouldDeleteRealmIfMigrationNeeded()) {
+                deleteRealm(configuration);
             } else {
-                migrateRealm(config);
+                migrateRealm(configuration);
             }
 
-            return createAndValidate(config, true, autoRefresh);
+            return createAndValidate(configuration, true, autoRefresh);
         }
     }
 
-    private static synchronized Realm createAndValidate(RealmConfiguration config, boolean validateSchema, boolean autoRefresh) {
-        byte[] key = config.getEncryptionKey();
-        String canonicalPath = config.getPath();
-        Map<String, Integer> localRefCount = referenceCount.get();
-        Integer references = localRefCount.get(canonicalPath);
+    private static synchronized Realm createAndValidate(RealmConfiguration configuration, boolean validateSchema, boolean autoRefresh) {
+
+        // Check if a cached instance already exists for this thread
+        String canonicalPath = configuration.getPath();
+        Map<RealmConfiguration, Integer> localRefCount = threadLocalReferenceCount.get();
+        Integer references = localRefCount.get(configuration);
         if (references == null) {
             references = 0;
         }
-        Map<String, Realm> realms = realmsCache.get();
-        Realm realm = realms.get(canonicalPath);
+        Map<RealmConfiguration, Realm> realms = threadLocalRealmCache.get();
+        Realm realm = realms.get(configuration);
+
         if (realm != null) {
-            if (!Arrays.equals(realm.key, key)) {
-                throw new IllegalStateException(DIFFERENT_KEY_MESSAGE);
+            // Check that encryption keys aren't different
+            RealmConfiguration cachedConfiguration = realm.getConfiguration();
+            if (!Arrays.equals(cachedConfiguration.getEncryptionKey(), configuration.getEncryptionKey())) {
+                throw new IllegalArgumentException(DIFFERENT_KEY_MESSAGE);
             }
-            localRefCount.put(canonicalPath, references + 1);
+
+            // Check schema versions are the same
+            if (cachedConfiguration.getSchemaVersion() != configuration.getSchemaVersion()) {
+                throw new IllegalArgumentException(String.format("Configurations cannot have different schema versions " +
+                        "if used to open the same file. %s vs. %s", cachedConfiguration.getSchemaVersion(),
+                        configuration.getSchemaVersion()));
+            }
+
+            // Check that schema is the same
+            RealmProxyMediator cachedSchema = cachedConfiguration.getSchemaMediator();
+            RealmProxyMediator schema = configuration.getSchemaMediator();
+            if (!cachedSchema.equals(schema)) {
+                throw new IllegalArgumentException("Two configurations with different schemas are trying to open " +
+                        "the same Realm file. Their schema must be the same: " + configuration.getPath());
+            }
+
+            localRefCount.put(configuration, references + 1);
             return realm;
         }
 
         // Create new Realm and cache it. All exception code paths must close the Realm otherwise we risk serving
         // faulty cache data.
-        realm = new Realm(canonicalPath, key, autoRefresh);
-        realm.proxyMediator = config.getSchemaMediator();
-        realms.put(canonicalPath, realm);
-        realmsCache.set(realms);
-        localRefCount.put(canonicalPath, references + 1);
+        realm = new Realm(configuration, autoRefresh);
+        realms.put(configuration, realm);
+        threadLocalRealmCache.set(realms);
+        localRefCount.put(configuration, references + 1);
 
         // Increment global reference counter
         if (references == 0) {
-            AtomicInteger counter = openRealms.get(canonicalPath);
+            AtomicInteger counter = globalOpenInstanceCounter.get(canonicalPath);
             if (counter == null) {
-                openRealms.put(canonicalPath, new AtomicInteger(1));
+                globalOpenInstanceCounter.put(canonicalPath, new AtomicInteger(1));
             } else {
                 counter.incrementAndGet();
             }
@@ -570,7 +592,7 @@ public final class Realm implements Closeable {
 
         // Check versions of Realm
         long currentVersion = realm.getVersion();
-        long requiredVersion = config.getSchemaVersion();
+        long requiredVersion = configuration.getSchemaVersion();
         if (currentVersion != UNVERSIONED && currentVersion < requiredVersion && validateSchema) {
             realm.close();
             throw new RealmMigrationNeededException(canonicalPath, String.format("Realm on disc need to migrate from v%s to v%s", currentVersion, requiredVersion));
@@ -583,7 +605,7 @@ public final class Realm implements Closeable {
         // Initialize Realm schema if needed
         if (validateSchema) {
             try {
-                initializeRealm(realm, config);
+                initializeRealm(realm);
             } catch (RuntimeException e) {
                 realm.close();
                 throw e;
@@ -594,22 +616,24 @@ public final class Realm implements Closeable {
     }
 
     @SuppressWarnings("unchecked")
-    private static void initializeRealm(Realm realm, RealmConfiguration config) {
+    private static void initializeRealm(Realm realm) {
         long version = realm.getVersion();
         boolean commitNeeded = false;
         try {
             realm.beginTransaction();
             if (version == UNVERSIONED) {
                 commitNeeded = true;
-                realm.setVersion(config.getSchemaVersion());
+                realm.setVersion(realm.configuration.getSchemaVersion());
             }
-            for (Class<? extends RealmObject> modelClass : realm.proxyMediator.getModelClasses()) {
+
+            RealmProxyMediator mediator = realm.getConfiguration().getSchemaMediator();
+            for (Class<? extends RealmObject> modelClass : mediator.getModelClasses()) {
                 // Create and validate table
                 if (version == UNVERSIONED) {
-                    realm.proxyMediator.createTable(modelClass, realm.transaction);
+                    mediator.createTable(modelClass, realm.transaction);
                 }
-                realm.proxyMediator.validateTable(modelClass, realm.transaction);
-                realm.columnIndices.addClass(modelClass, realm.proxyMediator.getColumnIndices(modelClass));
+                mediator.validateTable(modelClass, realm.transaction);
+                realm.columnIndices.addClass(modelClass, mediator.getColumnIndices(modelClass));
             }
         } finally {
             if (commitNeeded) {
@@ -637,7 +661,7 @@ public final class Realm implements Closeable {
 
         for (int i = 0; i < json.length(); i++) {
             try {
-                proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), false);
+                configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), false);
             } catch (Exception e) {
                 throw new RealmException("Could not map Json", e);
             }
@@ -662,7 +686,7 @@ public final class Realm implements Closeable {
         checkHasPrimaryKey(clazz);
         for (int i = 0; i < json.length(); i++) {
             try {
-                proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), true);
+                configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), true);
             } catch (Exception e) {
                 throw new RealmException("Could not map Json", e);
             }
@@ -743,7 +767,7 @@ public final class Realm implements Closeable {
         try {
             reader.beginArray();
             while (reader.hasNext()) {
-                proxyMediator.createUsingJsonStream(clazz, this, reader);
+                configuration.getSchemaMediator().createUsingJsonStream(clazz, this, reader);
             }
             reader.endArray();
         } finally {
@@ -776,7 +800,7 @@ public final class Realm implements Closeable {
             scanner = getFullStringScanner(in);
             JSONArray json = new JSONArray(scanner.next());
             for (int i = 0; i < json.length(); i++) {
-                proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), true);
+                configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json.getJSONObject(i), true);
             }
         } catch (JSONException e) {
             throw new RealmException("Failed to read JSON", e);
@@ -805,7 +829,7 @@ public final class Realm implements Closeable {
         }
 
         try {
-            return proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json, false);
+            return configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json, false);
         } catch (Exception e) {
             throw new RealmException("Could not map Json", e);
         }
@@ -828,7 +852,7 @@ public final class Realm implements Closeable {
         }
         checkHasPrimaryKey(clazz);
         try {
-            return proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json, true);
+            return configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json, true);
         } catch (JSONException e) {
             throw new RealmException("Could not map Json", e);
         }
@@ -908,7 +932,7 @@ public final class Realm implements Closeable {
 
         JsonReader reader = new JsonReader(new InputStreamReader(inputStream, "UTF-8"));
         try {
-            return proxyMediator.createUsingJsonStream(clazz, this, reader);
+            return configuration.getSchemaMediator().createUsingJsonStream(clazz, this, reader);
         } finally {
             reader.close();
         }
@@ -938,7 +962,7 @@ public final class Realm implements Closeable {
         try {
             scanner = getFullStringScanner(in);
             JSONObject json = new JSONObject(scanner.next());
-            return proxyMediator.createOrUpdateUsingJsonObject(clazz, this, json, true);
+            return configuration.getSchemaMediator().createOrUpdateUsingJsonObject(clazz, this, json, true);
         } catch (JSONException e) {
             throw new RealmException("Failed to read JSON", e);
         } finally {
@@ -1023,7 +1047,7 @@ public final class Realm implements Closeable {
     <E extends RealmObject> E get(Class<E> clazz, long rowIndex) {
         Table table = getTable(clazz);
         Row row = table.getRow(rowIndex);
-        E result = proxyMediator.newInstance(clazz);
+        E result = configuration.getSchemaMediator().newInstance(clazz);
         result.row = row;
         result.realm = this;
         return result;
@@ -1106,7 +1130,7 @@ public final class Realm implements Closeable {
     }
 
     boolean contains(Class<? extends RealmObject> clazz) {
-        return proxyMediator.getModelClasses().contains(clazz);
+        return configuration.getSchemaMediator().getModelClasses().contains(clazz);
     }
 
     /**
@@ -1380,7 +1404,7 @@ public final class Realm implements Closeable {
 
             // For all other threads, use the Handler
             if (
-                    realmPath.equals(canonicalPath)              // It's the right realm
+                    realmPath.equals(configuration.getPath())    // It's the right realm
                     && !handler.hasMessages(REALM_CHANGED)       // The right message
                     && handler.getLooper().getThread().isAlive() // The receiving thread is alive
             ) {
@@ -1441,8 +1465,9 @@ public final class Realm implements Closeable {
 
     // Returns the Handler for this Realm on the calling thread
     Handler getHandler() {
+        String realmPath = configuration.getPath();
         for (Map.Entry<Handler, String> entry : handlers.entrySet()) {
-            if (entry.getValue().equals(canonicalPath)) {
+            if (entry.getValue().equals(realmPath)) {
                 return entry.getKey();
             }
         }
@@ -1481,7 +1506,7 @@ public final class Realm implements Closeable {
 
     @SuppressWarnings("unchecked")
     private <E extends RealmObject> E copyOrUpdate(E object, boolean update) {
-        return proxyMediator.copyOrUpdate(this, object, update, new HashMap<RealmObject, RealmObjectProxy>());
+        return configuration.getSchemaMediator().copyOrUpdate(this, object, update, new HashMap<RealmObject, RealmObjectProxy>());
     }
 
     private <E extends RealmObject> void checkNotNullObject(E object) {
@@ -1561,7 +1586,7 @@ public final class Realm implements Closeable {
         realm.commitTransaction();
         realm.close();
 
-        realmsCache.remove();
+        threadLocalRealmCache.remove();
     }
 
     /**
@@ -1615,7 +1640,7 @@ public final class Realm implements Closeable {
         boolean result = true;
 
         String id = configuration.getPath();
-        AtomicInteger counter = openRealms.get(id);
+        AtomicInteger counter = globalOpenInstanceCounter.get(id);
         if (counter != null && counter.get() > 0) {
             throw new IllegalStateException("It's not allowed to delete the file associated with an open Realm. " +
                     "Remember to close() all the instances of the Realm before deleting its file.");
@@ -1705,7 +1730,7 @@ public final class Realm implements Closeable {
         }
 
         String canonicalPath = configuration.getPath();
-        AtomicInteger openInstances = openRealms.get(canonicalPath);
+        AtomicInteger openInstances = globalOpenInstanceCounter.get(canonicalPath);
         if (openInstances != null && openInstances.get() > 0) {
             throw new IllegalStateException("Cannot compact an open Realm");
         }
@@ -1729,7 +1754,15 @@ public final class Realm implements Closeable {
      * @see File#getCanonicalPath()
      */
     public String getPath() {
-        return canonicalPath;
+        return configuration.getPath();
+    }
+
+    /**
+     * Returns the {@link RealmConfiguration} for this Realm.
+     * @return {@link RealmConfiguration} for this Realm.
+     */
+    public RealmConfiguration getConfiguration() {
+        return configuration;
     }
 
     // Get the canonical path for a given file

@@ -285,4 +285,27 @@ public class RealmConfigurationTest extends AndroidTestCase {
         // Version upgrades should happen automatically if possible
         realm = Realm.getInstance(new RealmConfiguration.Builder(getContext()).schemaVersion(42).build());
     }
+
+    public void testEquals() {
+        RealmConfiguration config1 = new RealmConfiguration.Builder(getContext()).build();
+        RealmConfiguration config2 = new RealmConfiguration.Builder(getContext()).build();
+        assertEquals(config1, config2);
+    }
+
+    public void testHashCode() {
+        RealmConfiguration config1 = new RealmConfiguration.Builder(getContext()).build();
+        RealmConfiguration config2 = new RealmConfiguration.Builder(getContext()).build();
+        assertEquals(config1.hashCode(), config2.hashCode());
+    }
+
+    public void testEqualConfigurationsReturnCachedRealm() {
+        Realm realm1 = Realm.getInstance(getContext());
+        Realm realm2 = Realm.getInstance(getContext());
+        try {
+            assertEquals(realm1, realm2);
+        } finally {
+            realm1.close();
+            realm2.close();
+        }
+    }
 }
