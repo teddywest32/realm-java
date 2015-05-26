@@ -59,12 +59,14 @@ public class ModulesExampleActivity extends Activity {
         // It is possible to extend the default schema by adding additional modules using addModule(). This can
         // also be modules from libraries. This Realm contains the following classes: { Cow, Pig, Cat, Dog }
         RealmConfiguration farmAnimalsConfig = new RealmConfiguration.Builder(this)
+                .name("farm.realm")
                 .addModule(new DomesticAnimalsModule())
                 .build();
 
         // Or you can completely replace the default schema.
         // This Realm contains the following classes: { Elephant, Lion, Zebra, Spider, Snake }
         RealmConfiguration exoticAnimalsConfig = new RealmConfiguration.Builder(this)
+                .name("exotic.realm")
                 .setModules(new ZooAnimalsModule(), new CreepyAnimalsModule())
                 .build();
 
@@ -111,12 +113,12 @@ public class ModulesExampleActivity extends Activity {
 
         // You can copy objects between Realms
         showStatus("Copy objects between Realms");
-        showStatus("Number of cats on the farm : " + farmRealm.where(Cat.class).count());
-        Cat defaultCat = defaultRealm.where(Cat.class).findFirst();
+        showStatus("Number of pigs on the farm : " + farmRealm.where(Pig.class).count());
+        Pig defaultPig = defaultRealm.where(Pig.class).findFirst();
         farmRealm.beginTransaction();
-        farmRealm.copyToRealm(defaultCat);
+        farmRealm.copyToRealm(defaultPig);
         farmRealm.commitTransaction();
-        showStatus("Number of cats on the farm : " + farmRealm.where(Cat.class).count());
+        showStatus("Number of pigs on the farm : " + farmRealm.where(Pig.class).count());
 
         // Each realm is restricted to only accept their configured classes
         showStatus("Trying to add a unsupported class");
