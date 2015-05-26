@@ -12,9 +12,20 @@ android {
         versionName "1.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("keystore/release.keystore")
+            storePassword "realm1234"
+            keyAlias "realm-introexample"
+            keyPassword "realm1234"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -26,11 +37,6 @@ android {
     }
 }
 
-tasks.preBuild {
-    dependsOn ":realm:androidJar"
-}
-
 dependencies {
-    project ':realmModuleLibraryExample'
-    compile files("../../realm/build/libs/realm-${version}.jar")
+    compile project(':realmModuleLibraryExample')
 }
