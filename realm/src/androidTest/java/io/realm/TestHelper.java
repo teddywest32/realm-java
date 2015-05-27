@@ -78,7 +78,7 @@ public class TestHelper {
     // Returns a random used used by encrypted Realms.
     public static byte[] getRandomKey() {
         byte[] key = new byte[64];
-        new Random(42).nextBytes(key);
+        new Random().nextBytes(key);
         return key;
     }
 

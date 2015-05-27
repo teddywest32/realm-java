@@ -18,6 +18,7 @@ package io.realm;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,7 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.WeakHashMap;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -137,6 +138,10 @@ public final class Realm implements Closeable {
         }
     };
 
+    // Map between all Realm file path and all known configurations pointing to that file.
+    private static final Map<String, List<RealmConfiguration>> globalPathConfigurationCache =
+            new HashMap<String, List<RealmConfiguration>>();
+
     // Map how many times a Realm path has been opened across all threads.
     // This is only needed by deleteRealmFile.
     private static final Map<String, AtomicInteger> globalOpenInstanceCounter =
@@ -224,6 +229,7 @@ public final class Realm implements Closeable {
             AtomicInteger counter = globalOpenInstanceCounter.get(canonicalPath);
             if (counter.decrementAndGet() == 0) {
                 globalOpenInstanceCounter.remove(canonicalPath);
+                globalPathConfigurationCache.get(canonicalPath).remove(configuration);
             }
         }
 
@@ -546,38 +552,17 @@ public final class Realm implements Closeable {
         }
         Map<RealmConfiguration, Realm> realms = threadLocalRealmCache.get();
         Realm realm = realms.get(configuration);
-
         if (realm != null) {
-            // Check that encryption keys aren't different
-            RealmConfiguration cachedConfiguration = realm.getConfiguration();
-            if (!Arrays.equals(cachedConfiguration.getEncryptionKey(), configuration.getEncryptionKey())) {
-                throw new IllegalArgumentException(DIFFERENT_KEY_MESSAGE);
-            }
-
-            // Check schema versions are the same
-            if (cachedConfiguration.getSchemaVersion() != configuration.getSchemaVersion()) {
-                throw new IllegalArgumentException(String.format("Configurations cannot have different schema versions " +
-                        "if used to open the same file. %s vs. %s", cachedConfiguration.getSchemaVersion(),
-                        configuration.getSchemaVersion()));
-            }
-
-            // Check that schema is the same
-            RealmProxyMediator cachedSchema = cachedConfiguration.getSchemaMediator();
-            RealmProxyMediator schema = configuration.getSchemaMediator();
-            if (!cachedSchema.equals(schema)) {
-                throw new IllegalArgumentException("Two configurations with different schemas are trying to open " +
-                        "the same Realm file. Their schema must be the same: " + configuration.getPath());
-            }
-
             localRefCount.put(configuration, references + 1);
             return realm;
         }
 
+
         // Create new Realm and cache it. All exception code paths must close the Realm otherwise we risk serving
         // faulty cache data.
+        validateAgainstExistingConfigurations(configuration);
         realm = new Realm(configuration, autoRefresh);
         realms.put(configuration, realm);
-        threadLocalRealmCache.set(realms);
         localRefCount.put(configuration, references + 1);
 
         // Increment global reference counter
@@ -613,6 +598,47 @@ public final class Realm implements Closeable {
         }
 
         return realm;
+    }
+
+    // Make sure that the new configuration doesn't clash with any existing configurations for the Realm
+    private static void validateAgainstExistingConfigurations(RealmConfiguration newConfiguration) {
+
+        // Ensure cache state
+        String realmPath = newConfiguration.getPath();
+        List<RealmConfiguration> pathConfigurationCache = globalPathConfigurationCache.get(realmPath);
+        if (pathConfigurationCache == null) {
+            pathConfigurationCache = new ArrayList<RealmConfiguration>();
+            globalPathConfigurationCache.put(realmPath, pathConfigurationCache);
+        }
+
+        if (pathConfigurationCache.size() > 0) {
+
+            // For the current restrictions, it is enough to just check one of the existing configurations.
+            RealmConfiguration cachedConfiguration = pathConfigurationCache.get(0);
+
+            // Check that encryption keys aren't different
+            if (!Arrays.equals(cachedConfiguration.getEncryptionKey(), newConfiguration.getEncryptionKey())) {
+                throw new IllegalArgumentException(DIFFERENT_KEY_MESSAGE);
+            }
+
+            // Check schema versions are the same
+            if (cachedConfiguration.getSchemaVersion() != newConfiguration.getSchemaVersion()) {
+                throw new IllegalArgumentException(String.format("Configurations cannot have different schema versions " +
+                                "if used to open the same file. %s vs. %s", cachedConfiguration.getSchemaVersion(),
+                        newConfiguration.getSchemaVersion()));
+            }
+
+            // Check that schema is the same
+            RealmProxyMediator cachedSchema = cachedConfiguration.getSchemaMediator();
+            RealmProxyMediator schema = newConfiguration.getSchemaMediator();
+            if (!cachedSchema.equals(schema)) {
+                throw new IllegalArgumentException("Two configurations with different schemas are trying to open " +
+                        "the same Realm file. Their schema must be the same: " + newConfiguration.getPath());
+            }
+        }
+
+        // The new configuration doesn't violate existing configurations. Cache it.
+        pathConfigurationCache.add(newConfiguration);
     }
 
     @SuppressWarnings("unchecked")
@@ -1223,8 +1249,8 @@ public final class Realm implements Closeable {
                                                                     boolean sortAscending1,
                                                                     String fieldName2, boolean sortAscending2,
                                                                     String fieldName3, boolean sortAscending3) {
-        return allObjectsSorted(clazz, new String[] {fieldName1, fieldName2, fieldName3},
-                new boolean[] {sortAscending1, sortAscending2, sortAscending3});
+        return allObjectsSorted(clazz, new String[]{fieldName1, fieldName2, fieldName3},
+                new boolean[]{sortAscending1, sortAscending2, sortAscending3});
     }
 
     /**
