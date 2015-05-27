@@ -224,12 +224,12 @@ public final class Realm implements Closeable {
         }
         if (sharedGroup != null && references == 1) {
             threadLocalRealmCache.get().remove(configuration);
+            globalPathConfigurationCache.get(canonicalPath).remove(configuration);
             sharedGroup.close();
             sharedGroup = null;
             AtomicInteger counter = globalOpenInstanceCounter.get(canonicalPath);
             if (counter.decrementAndGet() == 0) {
                 globalOpenInstanceCounter.remove(canonicalPath);
-                globalPathConfigurationCache.get(canonicalPath).remove(configuration);
             }
         }
 

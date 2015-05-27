@@ -1435,8 +1435,8 @@ public class RealmTest extends AndroidTestCase {
     }
 
     public void testOpeningOfEncryptedRealmWithDifferentKeyInstances() {
-        byte[] key1 = TestHelper.getRandomKey();
-        byte[] key2 = TestHelper.getRandomKey();
+        byte[] key1 = TestHelper.getRandomKey(42);
+        byte[] key2 = TestHelper.getRandomKey(42);
 
         // Make sure the key is the same, but in two different instances
         assertArrayEquals(key1, key2);
