@@ -18,7 +18,6 @@ package io.realm;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -42,7 +41,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -607,7 +605,7 @@ public final class Realm implements Closeable {
         String realmPath = newConfiguration.getPath();
         List<RealmConfiguration> pathConfigurationCache = globalPathConfigurationCache.get(realmPath);
         if (pathConfigurationCache == null) {
-            pathConfigurationCache = new ArrayList<RealmConfiguration>();
+            pathConfigurationCache = new CopyOnWriteArrayList<RealmConfiguration>();
             globalPathConfigurationCache.put(realmPath, pathConfigurationCache);
         }
 
