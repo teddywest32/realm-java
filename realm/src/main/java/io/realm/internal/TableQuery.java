@@ -24,17 +24,23 @@ public class TableQuery implements Closeable {
 
     protected long nativePtr;
     protected final Table parent;
+    private TableOrView origin; // Table or TableView which created this TableQuery
     private final Context context;
 
     private boolean queryValidated = true;
 
     // TODO: Can we protect this?
-    public TableQuery(Context context, Table parent, long nativeQueryPtr){
+    public TableQuery(Context context, Table parent, long nativeQueryPtr) {
         if (DEBUG)
             System.err.println("++++++ new TableQuery, ptr= " + nativeQueryPtr);
         this.context = context;
         this.parent = parent;
         this.nativePtr = nativeQueryPtr;
+    }
+
+    public TableQuery(Context context, Table parent, long nativeQueryPtr, TableOrView origin) {
+        this(context, parent, nativeQueryPtr);
+        this.origin = origin;
     }
 
     public void close() {
@@ -55,7 +61,7 @@ public class TableQuery implements Closeable {
     protected void finalize() {
         synchronized (context) {
             if (nativePtr != 0) {
-                context.asyncDisposeQuery(nativePtr); 
+                context.asyncDisposeQuery(nativePtr);
                 nativePtr = 0; // Set to 0 if finalize is called before close() for some reason
             }
         }
@@ -472,7 +478,7 @@ public class TableQuery implements Closeable {
         context.executeDelayedDisposal();
         long nativeViewPtr = nativeFindAll(nativePtr, start, end, limit);
         try {
-            return new TableView(this.context, this.parent, nativeViewPtr);
+            return new TableView(this.context, this.parent, nativeViewPtr, this);
         } catch (RuntimeException e) {
             TableView.nativeClose(nativeViewPtr);
             throw e;
@@ -486,7 +492,7 @@ public class TableQuery implements Closeable {
         context.executeDelayedDisposal();
         long nativeViewPtr = nativeFindAll(nativePtr, 0, Table.INFINITE, Table.INFINITE);
         try {
-            return new TableView(this.context, this.parent, nativeViewPtr);
+            return new TableView(this.context, this.parent, nativeViewPtr, this);
         } catch (RuntimeException e) {
             TableView.nativeClose(nativeViewPtr);
             throw e;

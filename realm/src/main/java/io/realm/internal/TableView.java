@@ -64,7 +64,7 @@ import java.util.List;
  */
 public class TableView implements TableOrView, Closeable {
     protected boolean DEBUG = false; //true;
-
+    private TableQuery query; // the query which created this TableView
      /**
      * Creates a TableView with already created Java TableView Object and a
      * native native TableView object reference. The method is not supposed to
@@ -73,10 +73,15 @@ public class TableView implements TableOrView, Closeable {
      * @param parent A table.
      * @param nativePtr pointer to table.
      */
-    protected TableView(Context context, Table parent, long nativePtr){
+    protected TableView(Context context, Table parent, long nativePtr) {
         this.context = context;
         this.parent = parent;
         this.nativePtr = nativePtr;
+    }
+
+    protected TableView(Context context, Table parent, long nativePtr, TableQuery query) {
+        this(context, parent, nativePtr);
+        this.query = query;
     }
 
     @Override
@@ -85,7 +90,7 @@ public class TableView implements TableOrView, Closeable {
     }
 
     @Override
-    public void close(){
+    public void close() {
         synchronized (context) {
             if (nativePtr != 0) {
                 nativeClose(nativePtr);
@@ -910,7 +915,7 @@ public class TableView implements TableOrView, Closeable {
         this.context.executeDelayedDisposal();
         long nativeQueryPtr = nativeWhere(nativePtr);
         try {
-            return new TableQuery(this.context, this.parent, nativeQueryPtr);
+            return new TableQuery(this.context, this.parent, nativeQueryPtr, this);
         } catch (RuntimeException e) {
             TableQuery.nativeClose(nativeQueryPtr);
             throw e;

@@ -1152,7 +1152,7 @@ public class RealmQuery<E extends RealmObject> {
      * @throws java.lang.RuntimeException Any other error
      */
     public RealmResults<E> findAll() {
-        return new RealmResults<E>(realm, query.findAll(), clazz);
+        return new RealmResults<E>(realm, query.findAll(), clazz, this);
     }
 
     /**
@@ -1176,7 +1176,7 @@ public class RealmQuery<E extends RealmObject> {
             throw new IllegalArgumentException(String.format("Field name '%s' does not exist.", fieldName));
         }
         tableView.sort(columnIndex, order);
-        return new RealmResults<E>(realm, tableView, clazz);
+        return new RealmResults<E>(realm, tableView, clazz, this);
     }
 
 
