@@ -121,7 +121,7 @@ public class ModulesExampleActivity extends Activity {
         showStatus("Number of pigs on the farm : " + farmRealm.where(Pig.class).count());
 
         // Each realm is restricted to only accept their configured classes
-        showStatus("Trying to add a unsupported class");
+        showStatus("Trying to add an unsupported class");
         defaultRealm.beginTransaction();
         try {
             defaultRealm.createObject(Elephant.class);
