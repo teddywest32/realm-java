@@ -57,6 +57,7 @@ public class RealmResults<E extends RealmObject> extends AbstractList<E> {
     private Class<E> classSpec;
     private Realm realm;
     private TableOrView table = null;
+    private RealmQuery<E> query; // Query which created this TableView
 
     public static final boolean SORT_ORDER_ASCENDING = true;
     public static final boolean SORT_ORDER_DESCENDING = false;
@@ -72,6 +73,11 @@ public class RealmResults<E extends RealmObject> extends AbstractList<E> {
     RealmResults(Realm realm, TableOrView table, Class<E> classSpec) {
         this(realm, classSpec);
         this.table = table;
+    }
+
+    RealmResults(Realm realm, TableOrView table, Class<E> classSpec, RealmQuery query) {
+        this(realm, table, classSpec);
+        this.query = query;
     }
 
     Realm getRealm() {
