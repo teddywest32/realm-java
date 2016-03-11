@@ -1,298 +1,38 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
-
-android {
-    compileSdkVersion 20
-    buildToolsVersion '20.0.0'
-
-    defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 20
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
     }
 
-// TODO: re-enable once bug-fix is released
-//    jacoco {
-//        version = '0.7.2.201409121644'
-//    }
-//
-//    buildTypes {
-//        debug {
-//            testCoverageEnabled true
-//        }
-//    }
-
-}
-
-dependencies {
-    compile 'com.intellij:annotations:+@jar'
-    compile files("../realm-annotations/build/libs/realm-annotations-${version}.jar")
-    androidTestApt files("../realm-annotations-processor/build/libs/realm-annotations-processor-${version}.jar")
-    androidTestApt files("../realm-annotations/build/libs/realm-annotations-${version}.jar")
-}
-
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-
-    if (name.equalsIgnoreCase("debug")) {
-        return; // Skip debug builds.
-    }
-
-    def javadocTask = task("javadoc${variant.name.capitalize()}", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
-        group 'Docs'
-        source = variant.javaCompile.source
-        source "../realm-annotations/src/main/java"
-        ext.androidJar = files(project.android.getBootClasspath())
-        classpath = files(variant.javaCompile.classpath.files) + ext.androidJar
-        exclude '**/internal/**'
-        exclude '**/BuildConfig.java'
-        exclude '**/R.java'
-    }
-
-    task("bundleJavadoc${variant.name.capitalize()}", type: Jar) {
-        description "Bundles Javadoc into zip for $variant.name."
-        group 'Docs'
-        classifier = "javadoc"
-        from javadocTask
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'de.undercouch:gradle-download-task:2.0.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
+        classpath 'com.novoda:gradle-android-command-plugin:1.3.0'
+        classpath 'com.github.skhatri:gradle-s3-plugin:1.0.2'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.0.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+        classpath "io.realm:realm-transformer:${file('../version.txt').text.trim()}"
     }
 }
 
-task androidJar(type: Jar, dependsOn: ['assemble']) {
-    group 'Build'
-    description 'Generates a jar file containing Realm and its annotation processor'
-    from zipTree('build/intermediates/bundles/release/classes.jar')
-    from zipTree("../realm-annotations-processor/build/libs/realm-annotations-processor-${version}.jar")
-    from zipTree("../realm-annotations/build/libs/realm-annotations-${version}.jar")
-    from(file('src/main/jniLibs')) {
-        into 'lib'
+allprojects {
+    def props = new Properties()
+    props.load(new FileInputStream("${rootDir}/../realm.properties"))
+    props.each { key, val ->
+        project.set(key, val)
+    }
+
+    group = 'io.realm'
+    version = file("${rootDir}/../version.txt").text.trim();
+    repositories {
+        mavenLocal()
+        jcenter()
     }
 }
 
-task androidSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-    archives file("build/libs/realm-${version}.jar")
-    archives androidSourcesJar
-}
-
-publishing {
-    publications {
-        mavenAndroid(MavenPublication) {
-            groupId 'io.realm'
-            artifactId 'realm-android'
-            version version
-            artifact androidJar
-            artifact androidSourcesJar {
-                classifier "sources"
-            }
-            pom.withXml {
-                Node root = asNode()
-                root.appendNode('name', 'realm-android')
-                root.appendNode('description', 'Realm is a mobile database: a replacement for SQLite & ORMs.')
-                root.appendNode('url', 'http://realm.io')
-
-                def issues = root.appendNode('issueManagement')
-                issues.appendNode('system', 'github')
-                issues.appendNode('url', 'https://github.com/realm/realm-java/issues')
-
-                def scm = root.appendNode('scm')
-                scm.appendNode('url', 'scm:https://github.com/realm/realm-java')
-                scm.appendNode('connection', 'scm:git@github.com:realm/realm-java.git')
-                scm.appendNode('developerConnection', 'scm:git@github.com:realm/realm-java.git')
-
-                def license = root.appendNode('licenses').appendNode('license')
-                license.appendNode('name', 'The Apache Software License, Version 2.0')
-                license.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
-                license.appendNode('distribution', 'repo')
-            }
-        }
-    }
-}
-
-if (version.endsWith('-SNAPSHOT')) { // Only publish if it's a snapshot version
-    publishing {
-        repositories {
-            maven {
-                url 'http://oss.jfrog.org/artifactory/oss-snapshot-local'
-                credentials {
-                    // user and password come from the gradle.properties file in ~/.gradle
-                    username project.hasProperty('bintrayUser') ? bintrayUser : 'noUser'
-                    password project.hasProperty('bintrayKey') ? bintrayKey : 'noKey'
-                }
-            }
-        }
-    }
-} else {
-    bintray {
-        // user and key come from the gradle.properties file in ~/.gradle
-        user = project.hasProperty('bintrayUser') ? bintrayUser : 'noUser'
-        key = project.hasProperty('bintrayKey') ? bintrayKey : 'noKey'
-        publications = ['mavenAndroid']
-        publish = true
-        pkg {
-            repo = 'maven'
-            name = 'realm-android'
-            licenses = ['Apache-2.0']
-        }
-    }
-}
-
-task buildApt(type: GradleBuild) {
-    dir = file('../realm-annotations-processor')
-    tasks = ['shadowJar']
-}
-
-task compileJni(type: GradleBuild) {
-    dir = file('../realm-jni')
-    tasks = ['buildAndroidJni']
-}
-
-task compileAnnotations(type: GradleBuild) {
-    dir = file('../realm-annotations')
-    tasks = ['assemble']
-}
-
-project.afterEvaluate {
-    preBuild.dependsOn(['compileJni', 'compileAnnotations', 'buildApt'])
-}
-
-def examples = [
-    introExample: "RealmIntroExample",
-    gridViewExample: "RealmGridViewExample",
-    migrationExample: "RealmMigrationExample",
-    adapterExample: "RealmAdapterExample",
-    threadExample: "RealmThreadExample",
-    jsonExample: "RealmJsonExample",
-    encryptionExample: "RealmEncryptionExample"
-]
-
-def abi = [ 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'mips', 'x86' ]
-
-//for Ant filter
-import org.apache.tools.ant.filters.ReplaceTokens
-
-task generateDistributionExamplesBuildFiles << {
-    examples.each() { src, dest ->
-        copy {
-            from "${rootDir}/tools/templates/${dest}/build.gradle"
-            into "${rootDir}/distribution/${dest}/app"
-            filter(ReplaceTokens, tokens: [version: version])
-        }
-    }
-}
-
-task populateDistributionFolder(dependsOn: ['androidJar', 'bundleJavadocRelease']) << {
-    copy {
-        from '../changelog.txt'
-        from "build/libs/realm-${version}.jar"
-        from "build/libs/realm-${version}-javadoc.jar"
-        into '../distribution'
-    }
-    copy {
-        from 'build/docs/javadoc'
-        into '../distribution/javadoc'
-    }
-    examples.each() { src, dest ->
-        copy {
-            from "../examples/${src}/src"
-            into "../distribution/${dest}/app/src"
-        }
-    }
-}
-
-task copyLibrariesToEclipseFolder(dependsOn: 'androidJar') << {
-    copy {
-        from zipTree("build/libs/realm-${version}.jar")
-        into 'build/intermediates/eclipse'
-    }
-    abi.each() { abiName ->
-        copy {
-            from "build/intermediates/eclipse/lib/${abiName}/librealm-jni.so"
-            into "../distribution/eclipse/${abiName}"
-        }
-    }
-}
-
-task createEclipseJar(type: Zip) {
-    dependsOn 'copyLibrariesToEclipseFolder'
-    from 'build/intermediates/eclipse'
-    exclude 'lib'
-    destinationDir = new File("${rootDir}/distribution/eclipse")
-    archiveName = "realm-${version}.jar"
-}
-
-task createDistributionFolder() {
-    dependsOn 'generateDistributionExamplesBuildFiles'
-    dependsOn 'populateDistributionFolder'
-    dependsOn 'createEclipseJar'
-}
-
-task createDistributionPackage(type: Zip) {
-    group 'Release'
-    description 'Build the release distribution package'
-    dependsOn 'createDistributionFolder'
-    from "${rootDir}/distribution"
-    into "realm-java-${version}"
-    destinationDir = new File("${rootDir}")
-    archiveName = "realm-java-${version}.zip"
-}
-
-examples.each() { src, dest ->
-    task "distributionMonkey${dest}"(type: GradleBuild) {
-        dependsOn createDistributionPackage
-        //dependsOn bintrayUpload
-        dir = file("${rootDir}/distribution/${dest}")
-        tasks = ['monkeyRelease']
-    }
-}
-
-apply plugin: 's3'
-
-import com.github.skhatri.s3aws.plugin.S3UploadTask
-
-// This is an ugly hack because we have two links to the latest version.
-// The right solution here would be to contribute a change to the S3 Gradle plugin
-// to allow link to be a list of strings.
-['java', 'android'].each() { link ->
-    task "upload${link.capitalize()}DistributionPackage"(type: S3UploadTask) {
-        examples.each { src, dest ->
-            dependsOn "distributionMonkey${dest}"
-        }
-        bucket = 'static.realm.io'
-        file = "${rootDir}/realm-java-${version}.zip"
-        key = 'downloads/java/realm-java-${version}.zip'
-        link = "downloads/${link}/latest"
-    }
-}
-
-task uploadUpdateVersion(type: S3UploadTask) {
-    ['java', 'android'].each() { link ->
-        dependsOn "upload${link.capitalize()}DistributionPackage"
-    }
-    bucket = 'static.realm.io'
-    file = "${rootDir}/version.txt"
-    key = 'update/java'
-    link = 'downloads/temp/update-java'
-}
-
-task tagRepo(type: Exec) {
-    dependsOn uploadUpdateVersion
-    workingDir rootDir
-    commandLine 'git', 'tag', '-a', "v${version}", '-m', "v${version}"
-}
-
-task pushTag(type: Exec) {
-    dependsOn tagRepo
-    workingDir rootDir
-    commandLine 'git', 'push', '--tags'
-}
-
-task release {
-    group 'Release'
-    description 'Release realm-java'
-    dependsOn pushTag
+task wrapper(type: Wrapper) {
+    gradleVersion = project.gradleVersion
 }
