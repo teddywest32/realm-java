@@ -563,6 +563,12 @@ public class RealmProxyClassGenerator {
                 "Realm", "realm", className, "object", "boolean", "update", "Map<RealmObject,RealmObjectProxy>", "cache" // Argument type & argument name
         );
 
+        writer
+            .beginControlFlow("if (((RealmObject) object).realm != null && ((RealmObject) object).realm.threadId != realm.threadId)")
+                .emitStatement("throw new IllegalArgumentException(\"Objects which belong to Realm instances in other" +
+                        " threads cannot be copied into this Realm instance.\")")
+            .endControlFlow();
+
         // If object is already in the Realm there is nothing to update
         writer
             .beginControlFlow("if (((RealmObject) object).realm != null && ((RealmObject) object).realm.getPath().equals(realm.getPath()))")
@@ -825,6 +831,9 @@ public class RealmProxyClassGenerator {
     }
 
     private void emitToStringMethod(JavaWriter writer) throws IOException {
+        if (metadata.containsToString()) {
+            return;
+        }
         writer.emitAnnotation("Override");
         writer.beginMethod("String", "toString", EnumSet.of(Modifier.PUBLIC));
         writer.beginControlFlow("if (!isValid())");
@@ -873,6 +882,9 @@ public class RealmProxyClassGenerator {
     }
 
     private void emitHashcodeMethod(JavaWriter writer) throws IOException {
+        if (metadata.containsHashCode()) {
+            return;
+        }
         writer.emitAnnotation("Override");
         writer.beginMethod("int", "hashCode", EnumSet.of(Modifier.PUBLIC));
         writer.emitStatement("String realmName = ((RealmObject) this).realm.getPath()");
@@ -889,6 +901,9 @@ public class RealmProxyClassGenerator {
     }
 
     private void emitEqualsMethod(JavaWriter writer) throws IOException {
+        if (metadata.containsEquals()) {
+            return;
+        }
         String proxyClassName = className + Constants.PROXY_SUFFIX;
         writer.emitAnnotation("Override");
         writer.beginMethod("boolean", "equals", EnumSet.of(Modifier.PUBLIC), "Object", "o");

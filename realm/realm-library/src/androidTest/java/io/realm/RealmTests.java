@@ -136,8 +136,7 @@ public class RealmTests {
 
     private void populateTestRealm(Realm realm, int objects) {
         realm.beginTransaction();
-        realm.allObjects(AllTypes.class).clear();
-        realm.allObjects(NonLatinFieldNames.class).clear();
+        realm.deleteAll();
         for (int i = 0; i < objects; ++i) {
             AllTypes allTypes = realm.createObject(AllTypes.class);
             allTypes.setColumnBoolean((i % 3) == 0);
@@ -145,6 +144,7 @@ public class RealmTests {
             allTypes.setColumnDate(new Date());
             allTypes.setColumnDouble(3.1415);
             allTypes.setColumnFloat(1.234567f + i);
+
             allTypes.setColumnString("test data " + i);
             allTypes.setColumnLong(i);
             NonLatinFieldNames nonLatinFieldNames = realm.createObject(NonLatinFieldNames.class);
@@ -183,6 +183,26 @@ public class RealmTests {
 
         thrown.expect(RealmIOException.class);
         Realm.getInstance(new RealmConfiguration.Builder(folder).name(REALM_FILE).build());
+    }
+
+    @Test
+    public void getInstance_twiceWhenRxJavaUnavailable() {
+        // test for https://github.com/realm/realm-java/issues/2416
+
+        // Though it's not a recommended way to create multiple configuration instance with the same parameter, it's legal.
+        final RealmConfiguration configuration1 = configFactory.createConfiguration("no_RxJava.realm");
+        TestHelper.emulateRxJavaUnavailable(configuration1);
+        final RealmConfiguration configuration2 = configFactory.createConfiguration("no_RxJava.realm");
+        TestHelper.emulateRxJavaUnavailable(configuration2);
+
+        final Realm realm1 = Realm.getInstance(configuration1);
+        //noinspection TryFinallyCanBeTryWithResources
+        try {
+            final Realm realm2 = Realm.getInstance(configuration2);
+            realm2.close();
+        } finally {
+            realm1.close();
+        }
     }
 
     @Test
@@ -626,8 +646,8 @@ public class RealmTests {
         METHOD_BEGIN,
         METHOD_COMMIT,
         METHOD_CANCEL,
-        METHOD_CLEAR,
-        METHOD_CLEAR_ALL,
+        METHOD_DELETE_TYPE,
+        METHOD_DELETE_ALL,
         METHOD_DISTINCT,
         METHOD_CREATE_OBJECT,
         METHOD_COPY_TO_REALM,
@@ -659,10 +679,10 @@ public class RealmTests {
                         case METHOD_CANCEL:
                             realm.cancelTransaction();
                             break;
-                        case METHOD_CLEAR:
-                            realm.clear(AllTypes.class);
+                        case METHOD_DELETE_TYPE:
+                            realm.delete(AllTypes.class);
                             break;
-                        case METHOD_CLEAR_ALL:
+                        case METHOD_DELETE_ALL:
                             realm.deleteAll();
                             break;
                         case METHOD_DISTINCT:
@@ -828,14 +848,13 @@ public class RealmTests {
     }
 
     @Test
-    public void clear_type() {
-        // ** clear non existing table should succeed
-
+    public void delete_type() {
+        // ** delete non existing table should succeed
         realm.beginTransaction();
-        realm.clear(AllTypes.class);
+        realm.delete(AllTypes.class);
         realm.commitTransaction();
 
-        // ** clear existing class, but leave other classes classes
+        // ** delete existing class, but leave other classes classes
 
         // Add two classes
         populateTestRealm();
@@ -845,7 +864,7 @@ public class RealmTests {
         realm.commitTransaction();
         // Clear
         realm.beginTransaction();
-        realm.clear(Dog.class);
+        realm.delete(Dog.class);
         realm.commitTransaction();
         // Check one class is cleared but other class is still there
         RealmResults<AllTypes> resultListTypes = realm.where(AllTypes.class).findAll();
@@ -853,9 +872,9 @@ public class RealmTests {
         RealmResults<Dog> resultListDogs = realm.where(Dog.class).findAll();
         assertEquals(0, resultListDogs.size());
 
-        // ** clear() must throw outside a transaction
+        // ** delete() must throw outside a transaction
         try {
-            realm.clear(AllTypes.class);
+            realm.delete(AllTypes.class);
             fail("Expected exception");
         } catch (IllegalStateException ignored) {
         }
@@ -896,7 +915,7 @@ public class RealmTests {
     @Test
     public void utf8Tests() {
         realm.beginTransaction();
-        realm.clear(AllTypes.class);
+        realm.delete(AllTypes.class);
         realm.commitTransaction();
 
         String file = "assets/unicode_codepoints.csv";
@@ -977,7 +996,7 @@ public class RealmTests {
             realm.allObjects(StringOnly.class).get(0).getChars();
 
             realm.beginTransaction();
-            realm.clear(StringOnly.class);
+            realm.delete(StringOnly.class);
             realm.commitTransaction();
         }
     }
@@ -1344,6 +1363,36 @@ public class RealmTests {
     }
 
     @Test
+    public void copyToRealm_objectInOtherThreadThrows() {
+        final CountDownLatch bgThreadDoneLatch = new CountDownLatch(1);
+
+        realm.beginTransaction();
+        final Dog dog = realm.createObject(Dog.class);
+        realm.commitTransaction();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Realm bgRealm = Realm.getInstance(realm.getConfiguration());
+                bgRealm.beginTransaction();
+                try {
+                    bgRealm.copyToRealm(dog);
+                    fail();
+                } catch (IllegalArgumentException expected) {
+                    assertEquals("Objects which belong to Realm instances in other threads cannot be copied into this" +
+                                    " Realm instance.",
+                            expected.getMessage());
+                }
+                bgRealm.cancelTransaction();
+                bgRealm.close();
+                bgThreadDoneLatch.countDown();
+            }
+        }).start();
+
+        TestHelper.awaitOrFail(bgThreadDoneLatch);
+    }
+
+    @Test
     public void copyToRealmOrUpdate_null() {
         realm.beginTransaction();
         thrown.expect(IllegalArgumentException.class);
@@ -1595,6 +1644,68 @@ public class RealmTests {
 
         assertEquals(2, realm.allObjects(AllTypesPrimaryKey.class).size());
         assertEquals(1, realm.allObjects(DogPrimaryKey.class).size());
+    }
+
+    @Test
+    public void copyToRealmOrUpdate_objectInOtherThreadThrows() {
+        final CountDownLatch bgThreadDoneLatch = new CountDownLatch(1);
+
+        realm.beginTransaction();
+        final OwnerPrimaryKey ownerPrimaryKey = realm.createObject(OwnerPrimaryKey.class);
+        realm.commitTransaction();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Realm bgRealm = Realm.getInstance(realm.getConfiguration());
+                bgRealm.beginTransaction();
+                try {
+                    bgRealm.copyToRealm(ownerPrimaryKey);
+                    fail();
+                } catch (IllegalArgumentException expected) {
+                    assertEquals("Objects which belong to Realm instances in other threads cannot be copied into this" +
+                                    " Realm instance.",
+                            expected.getMessage());
+                }
+                bgRealm.cancelTransaction();
+                bgRealm.close();
+                bgThreadDoneLatch.countDown();
+            }
+        }).start();
+
+        TestHelper.awaitOrFail(bgThreadDoneLatch);
+    }
+
+    @Test
+    public void copyToRealmOrUpdate_listHasObjectInOtherThreadThrows() {
+        final CountDownLatch bgThreadDoneLatch = new CountDownLatch(1);
+        final OwnerPrimaryKey ownerPrimaryKey = new OwnerPrimaryKey();
+
+        realm.beginTransaction();
+        Dog dog = realm.createObject(Dog.class);
+        realm.commitTransaction();
+        ownerPrimaryKey.setDogs(new RealmList<Dog>(dog));
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Realm bgRealm = Realm.getInstance(realm.getConfiguration());
+                bgRealm.beginTransaction();
+                try {
+                    bgRealm.copyToRealm(ownerPrimaryKey);
+                    fail();
+                } catch (IllegalArgumentException expected) {
+                    assertEquals("Objects which belong to Realm instances in other threads cannot be copied into this" +
+                                    " Realm instance.",
+                            expected.getMessage());
+                }
+                bgRealm.cancelTransaction();
+                bgRealm.close();
+                bgThreadDoneLatch.countDown();
+            }
+        }).start();
+
+        TestHelper.awaitOrFail(bgThreadDoneLatch);
     }
 
     @Test
@@ -1855,8 +1966,8 @@ public class RealmTests {
         try { realm.copyToRealmOrUpdate(t);         fail(); } catch (IllegalStateException expected) {}
         try { realm.copyToRealmOrUpdate(ts);        fail(); } catch (IllegalStateException expected) {}
         try { realm.remove(AllTypes.class, 0);      fail(); } catch (IllegalStateException expected) {}
-        try { realm.clear(AllTypes.class);          fail(); } catch (IllegalStateException expected) {}
-        try { realm.deleteAll();                        fail(); } catch (IllegalStateException expected) {}
+        try { realm.delete(AllTypes.class);         fail(); } catch (IllegalStateException expected) {}
+        try { realm.deleteAll();                    fail(); } catch (IllegalStateException expected) {}
 
         try { realm.createObjectFromJson(AllTypesPrimaryKey.class, jsonObj);                fail(); } catch (RealmException expected) {}
         try { realm.createObjectFromJson(AllTypesPrimaryKey.class, jsonObjStr);             fail(); } catch (RealmException expected) {}
@@ -2528,7 +2639,7 @@ public class RealmTests {
     public void copyFromRealm_invalidObjectThrows() {
         realm.beginTransaction();
         AllTypes obj = realm.createObject(AllTypes.class);
-        obj.removeFromRealm();
+        obj.deleteFromRealm();
         realm.commitTransaction();
 
         try {
@@ -2671,7 +2782,7 @@ public class RealmTests {
         realm.beginTransaction();
         AllTypes object = realm.createObject(AllTypes.class);
         List<AllTypes> list = new RealmList<AllTypes>(object);
-        object.removeFromRealm();
+        object.deleteFromRealm();
         realm.commitTransaction();
 
         thrown.expect(IllegalArgumentException.class);
@@ -2957,7 +3068,7 @@ public class RealmTests {
     }
 
     @Test
-    public void clear_all() {
+    public void deleteAll() {
         realm.beginTransaction();
         realm.createObject(AllTypes.class);
         realm.createObject(Owner.class).setCat(realm.createObject(Cat.class));

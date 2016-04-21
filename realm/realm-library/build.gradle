@@ -8,6 +8,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
 apply plugin: 'checkstyle'
+apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     compileSdkVersion 23
@@ -32,6 +33,9 @@ android {
     }
 }
 
+
+coveralls.jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
+
 import io.realm.transformer.RealmTransformer
 
 android.registerTransform(new RealmTransformer())
@@ -43,7 +47,7 @@ repositories {
 dependencies {
     provided 'io.reactivex:rxjava:1.1.0'
     compile "io.realm:realm-annotations:${version}"
-    compile 'com.github.KeepSafe:ReLinker:1.1'
+    compile 'com.getkeepsafe.relinker:relinker:1.2.1'
 
     androidTestCompile 'io.reactivex:rxjava:1.1.0'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
@@ -78,7 +82,7 @@ task javadoc(type: Javadoc) {
     exclude '**/R.java'
     doLast {
         copy {
-            from "src/realm-overview.png"
+            from "src/realm-java-overview.png"
             into "$buildDir/docs/javadoc"
         }
     }
