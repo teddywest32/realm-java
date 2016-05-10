@@ -24,7 +24,7 @@ import java.util.List;
  * index, with the first index being zero. Normally, {@code OrderedRealmCollection}s allow duplicate
  * elements, as compared to Sets, where elements have to be unique.
  */
-public interface OrderedRealmCollection<E extends RealmObject> extends List<E>, RealmCollection<E> {
+public interface OrderedRealmCollection<E extends RealmModel> extends List<E>, RealmCollection<E> {
 
     /**
      * Gets the first object from the collection.
@@ -47,7 +47,7 @@ public interface OrderedRealmCollection<E extends RealmObject> extends List<E>, 
      *
      * @param fieldName the field name to sort by. Only fields of type boolean, short, int, long, float, double, Date,
      *                  and String are supported.
-     * @return a sorted view of the collection.
+     * @return a new sorted {@link RealmResults} will be created and returned. The original collection stays unchanged.
      * @throws java.lang.IllegalArgumentException if field name does not exist or it has an invalid type.
      * @throws java.lang.IllegalStateException if the Realm is closed, called on the wrong thread or the collection is
      *                                         an un-managed collection.
@@ -60,7 +60,7 @@ public interface OrderedRealmCollection<E extends RealmObject> extends List<E>, 
      * @param fieldName the field name to sort by. Only fields of type boolean, short, int, long, float, double, Date,
      *                  and String are supported.
      * @param sortOrder the direction to sort by.
-     * @return a sorted view of the collection.
+     * @return a new sorted {@link RealmResults} will be created and returned. The original collection stays unchanged.
      * @throws java.lang.IllegalArgumentException if field name does not exist or has an invalid type.
      * @throws java.lang.IllegalStateException if the Realm is closed, called on the wrong thread or the collection is
      *                                         an un-managed collection.
@@ -76,7 +76,7 @@ public interface OrderedRealmCollection<E extends RealmObject> extends List<E>, 
      * @param fieldName2 second field name. Only fields of type boolean, short, int, long, float,
      *                   double, Date, and String are supported.
      * @param sortOrder2 sort order for second field.
-     * @return a sorted view of the collection.
+     * @return a new sorted {@link RealmResults} will be created and returned. The original collection stays unchanged.
      * @throws java.lang.IllegalArgumentException if a field name does not exist or has an invalid type.
      * @throws java.lang.IllegalStateException if the Realm is closed, called on the wrong thread or the collection is
      *                                         an un-managed collection.
@@ -89,7 +89,7 @@ public interface OrderedRealmCollection<E extends RealmObject> extends List<E>, 
      * @param fieldNames an array of field names to sort by. Only fields of type boolean, short, int, long, float,
      *                   double, Date, and String are supported.
      * @param sortOrders the directions to sort by.
-     * @return a sorted view of the collection.
+     * @return a new sorted {@link RealmResults} will be created and returned. The original collection stays unchanged.
      * @throws java.lang.IllegalArgumentException if a field name does not exist or has an invalid type.
      * @throws java.lang.IllegalStateException if the Realm is closed, called on the wrong thread or the collection is
      *                                         an un-managed collection.
